@@ -12,7 +12,8 @@
     "!**/apiUtils.js",
     "!**/testUtils.js",
     "!**/stories/**",
-    "!**/themes/index.js"
+    "!**/themes/index.js",
+    "!app/icons.js"
   ],
   "testEnvironment": "jsdom",
   "reporters": [
