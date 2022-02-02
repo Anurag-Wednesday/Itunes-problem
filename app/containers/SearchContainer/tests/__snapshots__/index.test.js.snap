@@ -47,7 +47,9 @@ exports[`<SearchContainer /> container tests should render and match the snapsho
         </span>
       </span>
       SearchContainer
-      <div>
+      <div
+        data-testid="for"
+      >
         Data
       </div>
     </div>

@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage as T } from 'react-intl';
@@ -29,26 +29,19 @@ export function SearchContainer({
   trackError,
   trackData
 }) {
-  const [loading, setLoading] = useState(false);
-
   useEffect(() => {
-    const loaded = get(trackData) || trackError;
-    if (loaded) {
-      setLoading(false);
-    }
+    get(trackData) || trackError;
   }, [trackData]);
 
   useEffect(() => {
     if (searchTerm && !trackData) {
       dispatchTrackInfo(searchTerm);
-      setLoading(true);
     }
   });
 
   const handleOnChange = (sTerm) => {
     if (!isEmpty(sTerm)) {
       dispatchTrackInfo(sTerm);
-      setLoading(true);
     } else {
       dispatchClearTrackInfo();
     }
@@ -64,7 +57,7 @@ export function SearchContainer({
         onSearch={(searchText) => debouncedHandleOnChange(searchText)}
       />
       <T id={'SearchContainer'} />
-      {loading ? 'loading' : <div>Data</div>}
+      <div data-testid="for">Data</div>
     </div>
   );
 }
