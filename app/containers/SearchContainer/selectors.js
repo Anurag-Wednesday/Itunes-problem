@@ -18,11 +18,11 @@ export const selectSearchContainerDomain = (state) => state.searchContainer || i
 
 export const selectSearchContainer = () => createSelector(selectSearchContainerDomain, (substate) => substate);
 
-export const selectTrackData = () =>
-  createSelector(selectSearchContainerDomain, (substate) => get(substate, 'trackData'));
+export const selectTrackResults = () =>
+  createSelector(selectSearchContainerDomain, (substate) => get(substate, 'trackResults'));
 
-export const selectTrackError = () =>
-  createSelector(selectSearchContainerDomain, (substate) => get(substate, 'trackError'));
+export const selectTrackErrors = () =>
+  createSelector(selectSearchContainerDomain, (substate) => get(substate, 'trackErrors'));
 
 export const selectSearchTerm = () =>
   createSelector(selectSearchContainerDomain, (substate) => get(substate, 'searchTerm'));

@@ -7,7 +7,7 @@ import produce from 'immer';
 import { createActions } from 'reduxsauce';
 import get from 'lodash/get';
 
-export const initialState = { searchTerm: null, trackData: {}, trackError: null };
+export const initialState = { searchTerm: null, trackResults: {}, trackErrors: null };
 
 export const { Types: searchContainerTypes, Creators: searchContainerCreators } = createActions({
   requestGetTracks: ['searchTerm'],
@@ -24,14 +24,14 @@ export const searchContainerReducer = (state = initialState, action) =>
         break;
       case searchContainerTypes.CLEAR_TRACK_INFO:
         draft.searchTerm = null;
-        draft.trackError = null;
-        draft.trackData = {};
+        draft.trackErrors = null;
+        draft.trackResults = {};
         break;
       case searchContainerTypes.SUCCESS_GET_TRACK_INFO:
-        draft.trackData = action.data;
+        draft.trackResults = action.data;
         break;
       case searchContainerTypes.FAILURE_GET_TRACK_INFO:
-        draft.trackError = get(action.error, 'message', 'something_went_wrong');
+        draft.trackErrors = get(action.error, 'message', 'something_went_wrong');
         break;
     }
   });

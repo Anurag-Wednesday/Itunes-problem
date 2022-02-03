@@ -20,7 +20,7 @@ describe('SearchContainer reducer tests', () => {
 
   it('should ensure that the track data is present when REQUEST_GET_TRACKS is dispatched', () => {
     const data = { name: 'Charlie Puth' };
-    const expectedResult = { ...state, trackData: data };
+    const expectedResult = { ...state, trackResults: data };
     expect(
       searchContainerReducer(state, {
         type: searchContainerTypes.SUCCESS_GET_TRACK_INFO,
@@ -31,7 +31,7 @@ describe('SearchContainer reducer tests', () => {
 
   it('should ensure that the userErrorMessage has some data and userLoading = false when FETCH_USER_FAILURE is dispatched', () => {
     const error = 'something_went_wrong';
-    const expectedResult = { ...state, trackError: error };
+    const expectedResult = { ...state, trackErrors: error };
     expect(
       searchContainerReducer(state, {
         type: searchContainerTypes.FAILURE_GET_TRACK_INFO,

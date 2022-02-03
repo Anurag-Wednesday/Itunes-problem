@@ -1,22 +1,17 @@
-/**
- *
- * SearchContainer
- *
- */
-
 import React, { memo, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
+import { Input } from 'antd';
+import debounce from 'lodash/debounce';
+import get from 'lodash/get';
 import { injectIntl, FormattedMessage as T } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
-import { selectSearchContainer, selectTrackData, selectTrackError, selectSearchTerm } from './selectors';
+import { selectSearchContainer, selectTrackResults, selectTrackErrors, selectSearchTerm } from './selectors';
 import searchContainerSaga from './saga';
-import { Input } from 'antd';
-import get from 'lodash/get';
-import { isEmpty } from 'lodash';
-import debounce from 'lodash/debounce';
+
 import { searchContainerCreators } from './reducer';
 
 const { Search } = Input;
@@ -26,15 +21,15 @@ export function SearchContainer({
   dispatchClearTrackInfo,
   intl,
   searchTerm,
-  trackError,
-  trackData
+  trackErrors,
+  trackResults
 }) {
   useEffect(() => {
-    get(trackData) || trackError;
-  }, [trackData]);
+    get(trackResults) || trackErrors;
+  }, [trackResults]);
 
   useEffect(() => {
-    if (searchTerm && !trackData) {
+    if (searchTerm && !trackResults) {
       dispatchGetTrackList(searchTerm);
     }
   });
@@ -65,9 +60,9 @@ SearchContainer.propTypes = {
   dispatchGetTrackList: PropTypes.func,
   dispatchClearTrackInfo: PropTypes.func,
   intl: PropTypes.object,
-  trackError: PropTypes.string,
+  trackErrors: PropTypes.string,
   searchTerm: PropTypes.string,
-  trackData: PropTypes.shape({
+  trackResults: PropTypes.shape({
     resultsCount: PropTypes.number,
     results:
       PropTypes.array[
@@ -76,20 +71,20 @@ SearchContainer.propTypes = {
           kind: PropTypes.string,
           artistId: PropTypes.number,
           collectionId: PropTypes.number,
-          trackId: PropTypes.number,
+          trackId: PropTypes.number.isRequired,
           artistName: PropTypes.string,
-          collectionName: PropTypes.string,
-          trackName: PropTypes.string,
+          collectionName: PropTypes.string.isRequired,
+          trackName: PropTypes.string.isRequired,
           collectionCensoredName: PropTypes.string,
           trackCensoredName: PropTypes.string,
           collectionArtistName: PropTypes.string,
           artistViewUrl: PropTypes.string,
           collectionViewUrl: PropTypes.string,
           trackViewUrl: PropTypes.string,
-          previewUrl: PropTypes.string,
+          previewUrl: PropTypes.string.isRequired,
           artworkUrl30: PropTypes.string,
           artworkUrl60: PropTypes.string,
-          artworkUrl100: PropTypes.string,
+          artworkUrl100: PropTypes.string.isRequired,
           releaseDate: PropTypes.string,
           trackExplicitness: PropTypes.string,
           discCount: PropTypes.number,
@@ -99,7 +94,7 @@ SearchContainer.propTypes = {
           trackTimeMillis: PropTypes.number,
           country: PropTypes.string,
           currency: PropTypes.string,
-          primaryGenreName: PropTypes.string,
+          primaryGenreName: PropTypes.string.isRequired,
           contentAdvisoryRating: PropTypes.string,
           isStreamable: PropTypes.boolean
         })
@@ -108,8 +103,8 @@ SearchContainer.propTypes = {
 };
 const mapStateToProps = createStructuredSelector({
   searchContainer: selectSearchContainer(),
-  trackData: selectTrackData(),
-  trackError: selectTrackError(),
+  trackResults: selectTrackResults(),
+  trackErrors: selectTrackErrors(),
   searchTerm: selectSearchTerm()
 });
 

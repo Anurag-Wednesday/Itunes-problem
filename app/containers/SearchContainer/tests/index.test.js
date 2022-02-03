@@ -74,7 +74,7 @@ describe('<SearchContainer /> container tests', () => {
   });
   it('should dispatchGetTrackList if user types and the trackData is empty', async () => {
     const searchTerm = 'react-template';
-    renderProvider(<SearchContainer searchTerm={searchTerm} trackData={null} dispatchGetTrackList={submitSpy} />);
+    renderProvider(<SearchContainer searchTerm={searchTerm} trackResults={null} dispatchGetTrackList={submitSpy} />);
     await timeout(500);
     expect(submitSpy).toBeCalledWith(searchTerm);
   });

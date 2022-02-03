@@ -1,7 +1,7 @@
 import {
   selectSearchContainer,
-  selectTrackError,
-  selectTrackData,
+  selectTrackErrors,
+  selectTrackResults,
   selectSearchTerm,
   selectSearchContainerDomain
 } from '../selectors';
@@ -10,19 +10,19 @@ import { initialState } from '../reducer';
 describe('SearchContainer selector tests', () => {
   let mockedState;
   let searchTerm;
-  let trackData;
-  let trackError;
+  let trackResults;
+  let trackErrors;
 
   beforeEach(() => {
     searchTerm = 'mac';
-    trackData = { totalCount: 1, items: [{ searchTerm }] };
-    trackError = 'There was some error while fetching the track details';
+    trackResults = { totalCount: 1, items: [{ searchTerm }] };
+    trackErrors = 'There was some error while fetching the track details';
 
     mockedState = {
       searchContainer: {
         searchTerm,
-        trackError,
-        trackData
+        trackErrors,
+        trackResults
       }
     };
   });
@@ -36,12 +36,12 @@ describe('SearchContainer selector tests', () => {
     expect(searchSelector(mockedState)).toEqual(searchTerm);
   });
   it('should select trackData', () => {
-    const trackDataSelector = selectTrackData();
-    expect(trackDataSelector(mockedState)).toEqual(trackData);
+    const trackDataSelector = selectTrackResults();
+    expect(trackDataSelector(mockedState)).toEqual(trackResults);
   });
   it('should select the trackError', () => {
-    const trackErrorSelector = selectTrackError();
-    expect(trackErrorSelector(mockedState)).toEqual(trackError);
+    const trackErrorSelector = selectTrackErrors();
+    expect(trackErrorSelector(mockedState)).toEqual(trackErrors);
   });
   it('should select the global state', () => {
     const selector = selectSearchContainerDomain(initialState);
