@@ -7,7 +7,7 @@ const apiClients = {
   github: null,
   default: null
 };
-export const getApiClient = (type = 'github' || 'itunes') => apiClients[type];
+export const getApiClient = (type = 'github') => apiClients[type];
 export const generateApiClient = (type = 'github') => {
   switch (type) {
     case 'github':

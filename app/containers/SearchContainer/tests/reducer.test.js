@@ -8,18 +8,18 @@ describe('SearchContainer reducer tests', () => {
   });
 
   it('should return the initial state when an action of type FETCH_USER is dispatched', () => {
-    const searchTerm = 'Mohammed Ali Chherawalla';
+    const searchTerm = 'Charlie';
     const expectedResult = { ...state, searchTerm };
     expect(
       searchContainerReducer(state, {
-        type: searchContainerTypes.REQUEST_TRACK_INFO,
+        type: searchContainerTypes.REQUEST_GET_TRACKS,
         searchTerm
       })
     ).toEqual(expectedResult);
   });
 
-  it('should ensure that the user data is present and userLoading = false when FETCH_USER_SUCCESS is dispatched', () => {
-    const data = { name: 'Mohammed Ali Chherawalla' };
+  it('should ensure that the track data is present when REQUEST_GET_TRACKS is dispatched', () => {
+    const data = { name: 'Charlie Puth' };
     const expectedResult = { ...state, trackData: data };
     expect(
       searchContainerReducer(state, {

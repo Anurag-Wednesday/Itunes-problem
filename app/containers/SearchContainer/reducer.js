@@ -10,17 +10,16 @@ import get from 'lodash/get';
 export const initialState = { searchTerm: null, trackData: {}, trackError: null };
 
 export const { Types: searchContainerTypes, Creators: searchContainerCreators } = createActions({
-  requestTrackInfo: ['searchTerm'],
+  requestGetTracks: ['searchTerm'],
   successGetTrackInfo: ['data'],
   failureGetTrackInfo: ['error'],
   clearTrackInfo: {}
 });
 
-/* eslint-disable default-case, no-param-reassign */
 export const searchContainerReducer = (state = initialState, action) =>
   produce(state, (draft) => {
     switch (action.type) {
-      case searchContainerTypes.REQUEST_TRACK_INFO:
+      case searchContainerTypes.REQUEST_GET_TRACKS:
         draft.searchTerm = action.searchTerm;
         break;
       case searchContainerTypes.CLEAR_TRACK_INFO:

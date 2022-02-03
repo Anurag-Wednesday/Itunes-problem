@@ -22,7 +22,7 @@ import { searchContainerCreators } from './reducer';
 const { Search } = Input;
 
 export function SearchContainer({
-  dispatchTrackInfo,
+  dispatchGetTrackList,
   dispatchClearTrackInfo,
   intl,
   searchTerm,
@@ -35,20 +35,20 @@ export function SearchContainer({
 
   useEffect(() => {
     if (searchTerm && !trackData) {
-      dispatchTrackInfo(searchTerm);
+      dispatchGetTrackList(searchTerm);
     }
   });
 
   const handleOnChange = (sTerm) => {
     if (!isEmpty(sTerm)) {
-      dispatchTrackInfo(sTerm);
+      dispatchGetTrackList(sTerm);
     } else {
       dispatchClearTrackInfo();
     }
   };
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
   return (
-    <div>
+    <>
       <Search
         data-testid="search-bar"
         defaultValue={searchTerm}
@@ -57,20 +57,53 @@ export function SearchContainer({
         onSearch={(searchText) => debouncedHandleOnChange(searchText)}
       />
       <T id={'SearchContainer'} />
-      <div data-testid="for">Data</div>
-    </div>
+    </>
   );
 }
 
 SearchContainer.propTypes = {
-  dispatchTrackInfo: PropTypes.func,
+  dispatchGetTrackList: PropTypes.func,
   dispatchClearTrackInfo: PropTypes.func,
   intl: PropTypes.object,
   trackError: PropTypes.string,
   searchTerm: PropTypes.string,
   trackData: PropTypes.shape({
     resultsCount: PropTypes.number,
-    results: PropTypes.array
+    results:
+      PropTypes.array[
+        PropTypes.shape({
+          wrapperType: PropTypes.string,
+          kind: PropTypes.string,
+          artistId: PropTypes.number,
+          collectionId: PropTypes.number,
+          trackId: PropTypes.number,
+          artistName: PropTypes.string,
+          collectionName: PropTypes.string,
+          trackName: PropTypes.string,
+          collectionCensoredName: PropTypes.string,
+          trackCensoredName: PropTypes.string,
+          collectionArtistName: PropTypes.string,
+          artistViewUrl: PropTypes.string,
+          collectionViewUrl: PropTypes.string,
+          trackViewUrl: PropTypes.string,
+          previewUrl: PropTypes.string,
+          artworkUrl30: PropTypes.string,
+          artworkUrl60: PropTypes.string,
+          artworkUrl100: PropTypes.string,
+          releaseDate: PropTypes.string,
+          trackExplicitness: PropTypes.string,
+          discCount: PropTypes.number,
+          discNumber: PropTypes.number,
+          trackCount: PropTypes.number,
+          trackNumber: PropTypes.number,
+          trackTimeMillis: PropTypes.number,
+          country: PropTypes.string,
+          currency: PropTypes.string,
+          primaryGenreName: PropTypes.string,
+          contentAdvisoryRating: PropTypes.string,
+          isStreamable: PropTypes.boolean
+        })
+      ]
   })
 };
 const mapStateToProps = createStructuredSelector({
@@ -81,9 +114,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 export function mapDispatchToProps(dispatch) {
-  const { requestTrackInfo, clearTrackInfo } = searchContainerCreators;
+  const { requestGetTracks, clearTrackInfo } = searchContainerCreators;
   return {
-    dispatchTrackInfo: (searchTerm) => dispatch(requestTrackInfo(searchTerm)),
+    dispatchGetTrackList: (searchTerm) => dispatch(requestGetTracks(searchTerm)),
     dispatchClearTrackInfo: () => dispatch(clearTrackInfo())
   };
 }

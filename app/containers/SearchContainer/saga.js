@@ -1,14 +1,14 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import { getInfo } from '@app/services/repoApi';
+import { getList } from '@app/services/trackApi';
 import { searchContainerTypes, searchContainerCreators } from './reducer';
 
 // Individual exports for testing
 
-const { REQUEST_TRACK_INFO } = searchContainerTypes;
+const { REQUEST_GET_TRACKS } = searchContainerTypes;
 const { successGetTrackInfo, failureGetTrackInfo } = searchContainerCreators;
 
-export function* getTrackInfo(action) {
-  const response = yield call(getInfo, action.searchTerm);
+export function* getTrackList(action) {
+  const response = yield call(getList, action.searchTerm);
   const { data, ok } = response;
   if (ok) {
     yield put(successGetTrackInfo(data));
@@ -18,5 +18,5 @@ export function* getTrackInfo(action) {
 }
 
 export default function* searchContainerSaga() {
-  yield takeLatest(REQUEST_TRACK_INFO, getTrackInfo);
+  yield takeLatest(REQUEST_GET_TRACKS, getTrackList);
 }
