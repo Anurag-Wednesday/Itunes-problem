@@ -1,15 +1,9 @@
-/**
- *
- * Tests for SearchContainer
- *
- *
- */
-
 import React from 'react';
 import { renderProvider, timeout } from '@utils/testUtils';
-import { mapDispatchToProps, SearchContainerTest as SearchContainer } from '../index';
+import TrackComponent from '@app/components/TrackComponent/index';
 import { fireEvent } from '@testing-library/dom';
 import { searchContainerTypes } from '../reducer';
+import { mapDispatchToProps, SearchContainerTest as SearchContainer } from '../index';
 
 describe('<SearchContainer /> container tests', () => {
   let submitSpy;
@@ -77,5 +71,52 @@ describe('<SearchContainer /> container tests', () => {
     renderProvider(<SearchContainer searchTerm={searchTerm} trackResults={null} dispatchGetTrackList={submitSpy} />);
     await timeout(500);
     expect(submitSpy).toBeCalledWith(searchTerm);
+  });
+  it('should render exact number of TrackComponents as per the ResultCount in result', () => {
+    const resultCount = 1;
+    const data = {
+      trackName: 'See you Again',
+      artistName: 'Charlie Puth',
+      artworkUrl100:
+        'https://is4-ssl.mzstatic.com/image/thumb/Podcasts125/v4/72/46/63/724663b9-46ac-ab25-c167-546ef48f7ed5/mza_1727273594955964910.jpg/60x60bb.jpg',
+      previewUrl:
+        'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5d/b0/e4/5db0e413-9d75-d04c-5e95-ea9fc6361084/mzaf_16693952033856250131.plus.aac.p.m4a'
+    };
+    const { getAllByTestId } = renderProvider(<TrackComponent item={data} />);
+    expect(getAllByTestId('TrackCard').length).toBe(resultCount);
+  });
+
+  it('should set setPlayingSong if type passed to handleOnActionClick is play', async () => {
+    const handleOnActionClickSpy = jest.fn();
+    const data = {
+      resultCount: 1,
+      results: [
+        {
+          trackName: 'See you Again',
+          artistName: 'Charlie Puth',
+          artworkUrl100:
+            'https://is4-ssl.mzstatic.com/image/thumb/Podcasts125/v4/72/46/63/724663b9-46ac-ab25-c167-546ef48f7ed5/mza_1727273594955964910.jpg/60x60bb.jpg',
+          previewUrl:
+            'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5d/b0/e4/5db0e413-9d75-d04c-5e95-ea9fc6361084/mzaf_16693952033856250131.plus.aac.p.m4a'
+        },
+        {
+          trackName: 'See you Tomorrow',
+          artistName: 'Charlie Puth',
+          artworkUrl100:
+            'https://is4-ssl.mzstatic.com/image/thumb/Podcasts125/v4/72/46/63/724663b9-46ac-ab25-c167-546ef48f7ed5/mza_1727273594955964910.jpg/60x60bb.jpg',
+          previewUrl:
+            'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5d/b0/e4/5db0e413-9d75-d04c-5e95-ea9fc6361084/mzaf_16693952033856250131.plus.aac.p.m4a'
+        }
+      ]
+    };
+    const { getByTestId } = renderProvider(
+      <SearchContainer handleOnActionClick={handleOnActionClickSpy} trackResults={data} />
+    );
+    const trackOne = data.results[0].trackName;
+    const trackTwo = data.results[1].trackName;
+    const spy = jest.spyOn(getByTestId(trackOne), 'pause');
+    fireEvent.play(getByTestId(trackOne));
+    fireEvent.play(getByTestId(trackTwo));
+    expect(spy).toBeCalled();
   });
 });

@@ -1,20 +1,61 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
-import { Input } from 'antd';
-import debounce from 'lodash/debounce';
+import { injectIntl } from 'react-intl';
+import { Input, Skeleton, Card } from 'antd';
 import get from 'lodash/get';
-import { injectIntl, FormattedMessage as T } from 'react-intl';
+import { isEmpty } from 'lodash';
+import debounce from 'lodash/debounce';
+import If from '@components/If';
+import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
 import { selectSearchContainer, selectTrackResults, selectTrackErrors, selectSearchTerm } from './selectors';
+import For from '@app/components/For';
 import searchContainerSaga from './saga';
-
 import { searchContainerCreators } from './reducer';
+import TrackComponent from '@components/TrackComponent';
+import T from '@components/T';
 
 const { Search } = Input;
+
+const CustomCard = styled(Card)`
+  && {
+    margin: 20px 0;
+    max-width: 1000;
+    color: ${(props) => props.color};
+    ${(props) => props.color && `color: ${props.color}`}
+  }
+`;
+
+const TrackLayoutContainer = styled.div`
+  && {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    max-width: 100vw;
+    margin: '15px';
+    column-gap: 10px;
+  }
+`;
+
+const Container = styled.div`
+  && {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000;
+    width: 100%;
+    margin: 0 auto;
+    padding: ${(props) => props.padding}px;
+  }
+`;
+const Header = styled.h2`
+  && {
+    display: flex;
+    align-item: center;
+    justify-content: center;
+  }
+`;
 
 export function SearchContainer({
   dispatchGetTrackList,
@@ -22,17 +63,38 @@ export function SearchContainer({
   intl,
   searchTerm,
   trackErrors,
-  trackResults
+  trackResults,
+  maxwidth,
+  padding
 }) {
+  const [loading, setLoading] = useState(false);
+  const [playingSong, setPlayingSong] = useState(null);
+
+  const handleOnActionClick = (track, type) => {
+    if (type === 'play') {
+      setPlayingSong(track);
+      if (playingSong && playingSong !== track) {
+        playingSong.pause();
+      }
+    }
+  };
   useEffect(() => {
     get(trackResults) || trackErrors;
+    setLoading(false);
   }, [trackResults]);
 
   useEffect(() => {
     if (searchTerm && !trackResults) {
       dispatchGetTrackList(searchTerm);
+      setLoading(true);
     }
   });
+  useEffect(() => {
+    if (searchTerm && !trackResults) {
+      dispatchGetTrackList(searchTerm);
+      setLoading(true);
+    }
+  }, [searchTerm, trackResults]);
 
   const handleOnChange = (sTerm) => {
     if (!isEmpty(sTerm)) {
@@ -42,8 +104,38 @@ export function SearchContainer({
     }
   };
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
+
+  const renderTrackList = () => {
+    const results = get(trackResults, 'results', []);
+    const resultCount = get(trackResults, 'resultCount', 0);
+    return (
+      <If condition={!isEmpty(results) || loading}>
+        <Container>
+          <CustomCard>
+            <Skeleton loading={loading} active>
+              <If condition={!isEmpty(searchTerm)}>
+                <T type="subText" id="search_term" values={{ searchTerm }} />
+                <T type="subText" id="tracks_found" values={{ resultCount }} />
+              </If>
+            </Skeleton>
+            <For
+              of={results}
+              ParentComponent={TrackLayoutContainer}
+              renderItem={(item, index) => (
+                <TrackComponent key={index} {...item} handleOnActionClick={handleOnActionClick} />
+              )}
+            />
+          </CustomCard>
+        </Container>
+      </If>
+    );
+  };
+
   return (
-    <>
+    <Container maxwidth={maxwidth} padding={padding}>
+      <Header>
+        <div>Welcome to Itunes Search</div>
+      </Header>
       <Search
         data-testid="search-bar"
         defaultValue={searchTerm}
@@ -51,19 +143,23 @@ export function SearchContainer({
         onChange={(evt) => debouncedHandleOnChange(evt.target.value)}
         onSearch={(searchText) => debouncedHandleOnChange(searchText)}
       />
-      <T id={'SearchContainer'} />
-    </>
+      {renderTrackList()}
+    </Container>
   );
 }
 
 SearchContainer.propTypes = {
   dispatchGetTrackList: PropTypes.func,
   dispatchClearTrackInfo: PropTypes.func,
+  handleOnActionClick: PropTypes.func,
   intl: PropTypes.object,
+  maxwidth: PropTypes.number,
+  padding: PropTypes.number,
   trackErrors: PropTypes.string,
   searchTerm: PropTypes.string,
   trackResults: PropTypes.shape({
     resultsCount: PropTypes.number,
+    map: PropTypes.func,
     results:
       PropTypes.array[
         PropTypes.shape({
@@ -107,6 +203,13 @@ const mapStateToProps = createStructuredSelector({
   trackErrors: selectTrackErrors(),
   searchTerm: selectSearchTerm()
 });
+
+SearchContainer.defaultProps = {
+  maxwidth: 500,
+  padding: 20,
+  trackData: {},
+  trackError: null
+};
 
 export function mapDispatchToProps(dispatch) {
   const { requestGetTracks, clearTrackInfo } = searchContainerCreators;
