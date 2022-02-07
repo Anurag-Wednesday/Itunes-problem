@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
+import { Card } from 'antd';
 import styled from 'styled-components';
 import T from '@components/T';
 import If from '@components/If';
-import { Card } from 'antd';
-import { isEmpty } from 'lodash';
 
 const TrackCard = styled(Card)`&&{
   width: '350px',
