@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TrackComponent /> should render and match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="ant-card ant-card-bordered TrackComponent__TrackCard-sc-1y7fh5t-0 dtHKSJ"
+      data-testid="TrackCard"
+    >
+      <div
+        class="ant-card-head"
+      >
+        <div
+          class="ant-card-head-wrapper"
+        >
+          <div
+            class="ant-card-head-title"
+          >
+            <p
+              class="T__StyledText-gjlic1-0 fPbJth"
+              data-testid="t"
+            >
+              No track name available
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-card-body"
+      >
+        <p
+          class="T__StyledText-gjlic1-0 kYcyRq"
+          data-testid="t"
+        >
+          Image Unavailable
+        </p>
+        <p
+          class="T__StyledText-gjlic1-0 kYcyRq"
+          data-testid="t"
+        >
+          No artist data available
+        </p>
+        <p
+          class="T__StyledText-gjlic1-0 kYcyRq"
+          data-testid="t"
+        >
+          No preview available
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+`;
