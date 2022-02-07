@@ -34,10 +34,11 @@ describe('<RepoCard />', () => {
   });
 
   it('should render the repository unavailable messages in case any props are unavailable or have falsy values', () => {
+    const { getByTestId } = renderWithIntl(<RepoCard />);
     const repoUnavailable = translate('repo_name_unavailable');
     const fullNameUnavailable = translate('repo_full_name_unavailable');
     const stargazersUnavailable = translate('repo_stars_unavailable');
-    const { getByTestId } = renderWithIntl(<RepoCard />);
+
     expect(getByTestId('name-unavailable')).toHaveTextContent(repoUnavailable);
     expect(getByTestId('fullName-unavailable')).toHaveTextContent(fullNameUnavailable);
     expect(getByTestId('stargazers-unavaiable')).toHaveTextContent(stargazersUnavailable);

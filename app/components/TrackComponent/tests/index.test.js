@@ -2,6 +2,7 @@ import React from 'react';
 import { renderWithIntl } from '@utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
 import TrackComponent from '../index';
+import { translate } from '@app/components/IntlGlobalProvider/index';
 
 describe('<TrackComponent />', () => {
   it('should render and match the snapshot', () => {
@@ -41,6 +42,21 @@ it('should call onActionHandler if audio controls are clicked', () => {
     />
   );
   fireEvent.pause(getByTestId(trackName));
-  expect(handleOnActionClick).toBeCalled();
+  expect(handleOnActionClick).toBeCalledWith(getByTestId(trackName), 'pause');
   expect(getByTestId(trackName).paused).toEqual(true);
+  fireEvent.play(getByTestId(trackName));
+  expect(handleOnActionClick).toBeCalledWith(getByTestId(trackName), 'play');
+});
+
+it('should render the track details unavailable messages in case any props are unavailable', () => {
+  const { getByText } = renderWithIntl(<TrackComponent />);
+  const trackNameUnavailable = translate('no_track_name');
+  const artistDataUnavailable = translate('artist_data_unavailable');
+  const imageUnavailable = translate('image_unavailable');
+  const previewUnavailable = translate('preview_unavailable');
+
+  expect(getByText(trackNameUnavailable)).toBeInTheDocument();
+  expect(getByText(artistDataUnavailable)).toBeInTheDocument();
+  expect(getByText(imageUnavailable)).toBeInTheDocument();
+  expect(getByText(previewUnavailable)).toBeInTheDocument();
 });

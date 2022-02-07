@@ -17,5 +17,9 @@
   "search_term": "Search term: {searchTerm}",
   "tracks_found": "Tracks Found: {resultCount}",
   "artist_name": "Artist: {artist}",
-  "name": "{trackName}"
+  "name": "{trackName}",
+  "image_unavailable": "Image Unavailable",
+  "artist_data_unavailable": "No artist data available",
+  "preview_unavailable": "No preview available",
+  "no_track_name": "No track name available"
 }
