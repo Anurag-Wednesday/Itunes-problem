@@ -1,4 +1,4 @@
-import { searchContainerReducer, searchContainerTypes, initialState } from '../reducer';
+import { searchContainerReducer, searchContainerTypes, initialState } from '../../reducer';
 
 /* eslint-disable default-case, no-param-reassign */
 describe('SearchContainer reducer tests', () => {

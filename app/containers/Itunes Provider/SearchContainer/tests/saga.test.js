@@ -4,8 +4,8 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { takeLatest, call, put } from 'redux-saga/effects';
-import searchContainerSaga, { getTrackList } from '../saga';
-import { searchContainerTypes } from '../reducer';
+import searchContainerSaga, { getTrackList } from '../../saga';
+import { searchContainerTypes } from '../../reducer';
 import { apiResponseGenerator } from '@app/utils/testUtils';
 import { getList } from '@services/trackApi';
 

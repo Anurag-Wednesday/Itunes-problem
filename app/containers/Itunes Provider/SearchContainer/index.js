@@ -11,10 +11,10 @@ import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
-import { selectSearchContainer, selectTrackResults, selectTrackErrors, selectSearchTerm } from './selectors';
+import { selectSearchContainer, selectTrackResults, selectTrackErrors, selectSearchTerm } from '../selectors';
 import For from '@app/components/For';
-import searchContainerSaga from './saga';
-import { searchContainerCreators } from './reducer';
+import searchContainerSaga from '../saga';
+import { searchContainerCreators } from '../reducer';
 import TrackComponent from '@components/TrackComponent';
 import T from '@components/T';
 

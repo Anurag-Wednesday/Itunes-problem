@@ -4,8 +4,8 @@ import {
   selectTrackResults,
   selectSearchTerm,
   selectSearchContainerDomain
-} from '../selectors';
-import { initialState } from '../reducer';
+} from '../../selectors';
+import { initialState } from '../../reducer';
 
 describe('SearchContainer selector tests', () => {
   let mockedState;
