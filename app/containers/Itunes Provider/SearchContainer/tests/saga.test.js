@@ -1,10 +1,5 @@
-/**
- * Test searchContainer sagas
- */
-
-/* eslint-disable redux-saga/yield-effects */
 import { takeLatest, call, put } from 'redux-saga/effects';
-import searchContainerSaga, { getTrackList } from '../../saga';
+import searchContainerSaga, { getTrackById, getTrackList } from '../../saga';
 import { searchContainerTypes } from '../../reducer';
 import { apiResponseGenerator } from '@app/utils/testUtils';
 import { getList } from '@services/trackApi';
@@ -47,4 +42,64 @@ describe('SearchContainer saga tests', () => {
       })
     );
   });
+  it('should check if the trackId is present in the store before calling getList ', () => {
+    const trackId = 411014;
+    let getTrackByIdGenerator = getTrackById({ searchId: trackId });
+    const trackResults = {
+      resultCount: 1,
+      results: [{ trackName: 'See you again', trackId }]
+    };
+    getTrackByIdGenerator.next(trackResults).value;
+
+    expect(getTrackByIdGenerator.next(trackResults).value).toEqual(
+      put({
+        type: searchContainerTypes.SUCCESS_GET_TRACK_BY_ID,
+        item: trackResults
+      })
+    );
+  });
+});
+
+it('should call the api and add data if the trackId is not present', () => {
+  const trackId = 411014;
+  const trackSearch = {
+    resultCount: 1,
+    results: [{ trackName: 'See you tomorrow', trackId: 410013 }]
+  };
+  let getTrackByIdGenerator = getTrackById({ searchId: trackId });
+  const trackResults = {
+    resultCount: 1,
+    results: [{ trackName: 'See you again', trackId: 410011 }]
+  };
+  getTrackByIdGenerator.next(trackResults).value;
+  getTrackByIdGenerator.next(trackResults).value;
+  getTrackByIdGenerator.next(apiResponseGenerator(true, trackSearch));
+  expect(getTrackByIdGenerator.next().value).toEqual(
+    put({
+      type: searchContainerTypes.SUCCESS_GET_TRACK_BY_ID,
+      item: trackSearch
+    })
+  );
+});
+
+it('should call the failureGetRepos action if the response from the API fails', () => {
+  const trackId = 411014;
+  const trackError = {
+    error: 'There was an error'
+  };
+  let getTrackByIdGenerator = getTrackById({ searchId: trackId });
+  getTrackByIdGenerator.next(trackError).value;
+  getTrackByIdGenerator.next(trackError).value;
+  expect(getTrackByIdGenerator.next(apiResponseGenerator(false, trackError)).value).toEqual(
+    put({
+      type: searchContainerTypes.FAILURE_GET_TRACK_INFO,
+      error: trackError
+    })
+  );
+});
+
+it('should start task to watch for REQUEST_GET_TRACK_BY_ID action', () => {
+  const generator = searchContainerSaga();
+  generator.next().value;
+  expect(generator.next().value).toEqual(takeLatest(searchContainerTypes.REQUEST_GET_TRACK_BY_ID, getTrackById));
 });

@@ -3,7 +3,8 @@ import {
   selectTrackErrors,
   selectTrackResults,
   selectSearchTerm,
-  selectSearchContainerDomain
+  selectSearchContainerDomain,
+  selectSearchedTrack
 } from '../../selectors';
 import { initialState } from '../../reducer';
 
@@ -12,17 +13,20 @@ describe('SearchContainer selector tests', () => {
   let searchTerm;
   let trackResults;
   let trackErrors;
+  let searchedTrack;
 
   beforeEach(() => {
     searchTerm = 'mac';
-    trackResults = { totalCount: 1, items: [{ searchTerm }] };
+    trackResults = { resultCount: 1, results: [{ searchTerm }] };
+    searchedTrack = { resultCount: 1, results: [{ searchTerm }] };
     trackErrors = 'There was some error while fetching the track details';
 
     mockedState = {
       searchContainer: {
         searchTerm,
         trackErrors,
-        trackResults
+        trackResults,
+        searchedTrack
       }
     };
   });
@@ -38,6 +42,10 @@ describe('SearchContainer selector tests', () => {
   it('should select trackData', () => {
     const trackDataSelector = selectTrackResults();
     expect(trackDataSelector(mockedState)).toEqual(trackResults);
+  });
+  it('should select searchedTrack', () => {
+    const searchedTrackSelector = selectSearchedTrack();
+    expect(searchedTrackSelector(mockedState)).toEqual(searchedTrack);
   });
   it('should select the trackError', () => {
     const trackErrorSelector = selectTrackErrors();

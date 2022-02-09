@@ -24,6 +24,9 @@ const CustomCard = styled(Card)`
   && {
     margin: 20px 0;
     max-width: 1000;
+    background-color: #231f20;
+    border-style: hidden;
+    color: white;
   }
 `;
 
@@ -31,9 +34,11 @@ const TrackLayoutContainer = styled.div`
   && {
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);
+    background-color: #231f20;
     max-width: 100vw;
     margin: '15px';
     column-gap: 10px;
+    color: white;
   }
 `;
 
@@ -41,6 +46,7 @@ const Container = styled.div`
   && {
     display: flex;
     flex-direction: column;
+    background-color: #231f20;
     max-width: 1000;
     width: 100%;
     margin: 0 auto;
@@ -52,6 +58,7 @@ const Header = styled.h2`
     display: flex;
     align-item: center;
     justify-content: center;
+    color: white;
   }
 `;
 

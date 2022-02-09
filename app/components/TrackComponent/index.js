@@ -5,6 +5,7 @@ import { Card } from 'antd';
 import styled from 'styled-components';
 import T from '@components/T';
 import If from '@components/If';
+import history from '@app/utils/history';
 
 const TrackCard = styled(Card)`
   && {
@@ -12,14 +13,19 @@ const TrackCard = styled(Card)`
     height: auto;
     alignitems: start;
     flexwrap: wrap;
+    background-color: #231f20;
+    color: white;
+    font-weight: bolder;
+    padding: 1rem;
   }
 `;
 
 const TrackImage = styled.img`
   && {
     width: 6.25rem;
-    height: 6.25;
+    height: 6.25rem;
     margin-left: 30%;
+    margin-bottom: 1rem;
     border-radius: 50%;
   }
 `;
@@ -29,20 +35,29 @@ const AudioPlayer = styled.audio`
     width: 15.6rem;
     height: 2.2rem;
     color: black;
+    margin-top: 1.5rem;
   }
 `;
 
-export function TrackComponent({ trackName, artworkUrl100, artistName, previewUrl, handleOnActionClick }) {
+const Title = styled(T)`
+  && {
+    color: white;
+    font-style: italic;
+  }
+`;
+
+export function TrackComponent({ trackId, trackName, artworkUrl100, artistName, previewUrl, handleOnActionClick }) {
   function onActionHandler(evt) {
     handleOnActionClick(evt.target, evt.type);
   }
 
   return (
     <TrackCard
+      onClick={() => history.push(`/tracks/${trackId}`)}
       data-testid="TrackCard"
       title={
         <If condition={!isEmpty(trackName)} otherwise={<T type="subheading" id="no_track_name" />}>
-          <T type="subheading" id="name" values={{ trackName }} />
+          <Title type="subheading" id="name" values={{ trackName }} />
         </If>
       }
     >
@@ -70,6 +85,7 @@ export function TrackComponent({ trackName, artworkUrl100, artistName, previewUr
 }
 
 TrackComponent.propTypes = {
+  trackId: PropTypes.number,
   trackName: PropTypes.string,
   previewUrl: PropTypes.string,
   artistName: PropTypes.string,

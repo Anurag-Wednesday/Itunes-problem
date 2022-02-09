@@ -21,5 +21,10 @@
   "image_unavailable": "Image Unavailable",
   "artist_data_unavailable": "No artist data available",
   "preview_unavailable": "No preview available",
-  "no_track_name": "No track name available"
+  "no_track_name": "No track name available",
+  "track_details_name": "Track: {Track}",
+  "track_details_collectionName": "{Collection}",
+  "track_details_genre": "{Genre}",
+  "track_details_URL": "View on Itunes store",
+  "track_list": "TrackList"
 }

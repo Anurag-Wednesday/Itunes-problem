@@ -3,9 +3,7 @@
 exports[`<TrackDetails /> container tests should render and match the snapshot 1`] = `
 <body>
   <div>
-    <div>
-      TrackDetails
-    </div>
+    ;
   </div>
 </body>
 `;

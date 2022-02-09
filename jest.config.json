@@ -9,6 +9,7 @@
     "!app/global-styles.js",
     "!app/*/*/Loadable.{js,jsx}",
     "!**/loadable.js",
+    "!app/*/*/*/Loadable.js",
     "!**/apiUtils.js",
     "!**/testUtils.js",
     "!**/stories/**",
