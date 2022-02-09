@@ -7,8 +7,10 @@
 
 const primary = '#fcedda';
 const text = '#212529';
+const whiteText = '#fffff';
 const secondary = '#f8c49c';
 const success = '#28a745';
+const background = '#231f20';
 const error = '#dc3545';
 const gotoStories = '#1890ff';
 
@@ -17,6 +19,8 @@ const colors = {
   // Example colors:
   text,
   primary,
+  background,
+  whiteText,
   secondary,
   success,
   error,

@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Card } from 'antd';
+import { colors } from '@app/themes/index';
 import styled from 'styled-components';
 import T from '@components/T';
 import If from '@components/If';
@@ -13,9 +14,9 @@ const TrackCard = styled(Card)`
     height: auto;
     alignitems: start;
     flexwrap: wrap;
-    background-color: #231f20;
+    background-color: ${colors.background};
     color: white;
-    font-weight: bolder;
+    font-weight: 400;
     padding: 1rem;
   }
 `;
@@ -34,14 +35,13 @@ const AudioPlayer = styled.audio`
   && {
     width: 15.6rem;
     height: 2.2rem;
-    color: black;
     margin-top: 1.5rem;
   }
 `;
 
 const Title = styled(T)`
   && {
-    color: white;
+    color: ${colors.whiteText};
     font-style: italic;
   }
 `;

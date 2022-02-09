@@ -4,6 +4,7 @@ import { Carousel } from 'antd';
 import { isEmpty } from 'lodash';
 import styled from 'styled-components';
 import If from '@components/If';
+import { colors } from '@app/themes/index';
 import T from '@components/T';
 
 const Details = styled.div`
@@ -11,7 +12,7 @@ const Details = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #231f20;
+    background-color: ${colors.background};
     color: white;
     margin-left: 7rem;
   }
@@ -21,7 +22,7 @@ const TrackTitle = styled.div`
   && {
     text-align: center;
     margin-top: 3rem;
-    color: white;
+    color: ${colors.whiteText};
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -56,7 +57,6 @@ const AudioPlayer = styled.audio`
   && {
     width: 20rem;
     height: 6rem;
-    color: black;
     margin: 1rem;
   }
 `;
@@ -81,15 +81,9 @@ export function TrackDetailsComponent({
     <TrackDetailsCard data-testid="track-details-component">
       <If condition={!isEmpty(artworkUrl100)} otherwise={<T data-testid="image_unavailable" id="image_unavailable" />}>
         <StyledCarousel autoplay dotPosition="bottom">
-          <div>
-            <TrackImage alt={trackName} src={artworkUrl100} />
-          </div>
-          <div>
-            <TrackImage alt={trackName} src={artworkUrl100} />
-          </div>
-          <div>
-            <TrackImage alt={trackName} src={artworkUrl100} />
-          </div>
+          <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
+          <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
+          <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
         </StyledCarousel>
       </If>
       <Details>
