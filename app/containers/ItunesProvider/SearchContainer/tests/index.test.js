@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderProvider, timeout } from '@utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
-import { searchContainerTypes } from '../reducer';
+import { searchContainerTypes } from '../../reducer';
 import TrackComponent from '@app/components/TrackComponent/index';
 import { mapDispatchToProps, SearchContainerTest as SearchContainer } from '../index';
 

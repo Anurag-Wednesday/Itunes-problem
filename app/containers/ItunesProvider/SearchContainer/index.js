@@ -11,10 +11,11 @@ import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
-import { selectSearchContainer, selectTrackResults, selectTrackErrors, selectSearchTerm } from './selectors';
+import { selectSearchContainer, selectTrackResults, selectTrackErrors, selectSearchTerm } from '../selectors';
 import For from '@app/components/For';
-import searchContainerSaga from './saga';
-import { searchContainerCreators } from './reducer';
+import searchContainerSaga from '../saga';
+import { colors } from '@app/themes/index';
+import { searchContainerCreators } from '../reducer';
 import TrackComponent from '@components/TrackComponent';
 import T from '@components/T';
 
@@ -24,6 +25,9 @@ const CustomCard = styled(Card)`
   && {
     margin: 20px 0;
     max-width: 1000;
+    background-color: ${colors.background};
+    border-style: hidden;
+    color: ${colors.whiteText};
   }
 `;
 
@@ -31,9 +35,11 @@ const TrackLayoutContainer = styled.div`
   && {
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);
+    background-color: ${colors.background};
     max-width: 100vw;
     margin: '15px';
     column-gap: 10px;
+    color: ${colors.whiteText};
   }
 `;
 
@@ -41,7 +47,7 @@ const Container = styled.div`
   && {
     display: flex;
     flex-direction: column;
-    max-width: 1000;
+    background-color: ${colors.background};
     width: 100%;
     margin: 0 auto;
     padding: ${(props) => props.padding}px;
@@ -52,6 +58,7 @@ const Header = styled.h2`
     display: flex;
     align-item: center;
     justify-content: center;
+    color: white;
   }
 `;
 

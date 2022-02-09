@@ -1,13 +1,12 @@
-import { searchContainerReducer, searchContainerTypes, initialState } from '../reducer';
+import { searchContainerReducer, searchContainerTypes, initialState } from '../../reducer';
 
-/* eslint-disable default-case, no-param-reassign */
 describe('SearchContainer reducer tests', () => {
   let state;
   beforeEach(() => {
     state = initialState;
   });
 
-  it('should return the initial state when an action of type FETCH_USER is dispatched', () => {
+  it('should return the initial state when an action of type REQUEST_GET_TRACKS is dispatched', () => {
     const searchTerm = 'Charlie';
     const expectedResult = { ...state, searchTerm };
     expect(
@@ -29,7 +28,7 @@ describe('SearchContainer reducer tests', () => {
     ).toEqual(expectedResult);
   });
 
-  it('should ensure that the userErrorMessage has some data and userLoading = false when FETCH_USER_FAILURE is dispatched', () => {
+  it('should ensure that the trackError has some data when failure_get_track_info is dispatched', () => {
     const error = 'something_went_wrong';
     const expectedResult = { ...state, trackErrors: error };
     expect(
@@ -46,5 +45,25 @@ describe('SearchContainer reducer tests', () => {
         type: searchContainerTypes.CLEAR_TRACK_INFO
       })
     ).toEqual(initialState);
+  });
+  it('should disptach the REQUEST_GET_TRSCK_BY_ID with the searchId ', () => {
+    const searchId = 1477536825;
+    const expectedResult = { ...state, searchId };
+    expect(
+      searchContainerReducer(state, {
+        type: searchContainerTypes.REQUEST_GET_TRACK_BY_ID,
+        searchId
+      })
+    ).toEqual(expectedResult);
+  });
+  it('should ensure that the searchedTrack is present when SUCCESS_GET_TRACK_BY_ID is dispatched', () => {
+    const item = { results: ['Charlie Puth'], resultCount: 1 };
+    const expectedResult = { ...state, searchedTrack: item };
+    expect(
+      searchContainerReducer(state, {
+        type: searchContainerTypes.SUCCESS_GET_TRACK_BY_ID,
+        item
+      })
+    ).toEqual(expectedResult);
   });
 });

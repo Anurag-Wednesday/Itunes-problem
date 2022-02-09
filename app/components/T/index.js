@@ -15,6 +15,8 @@ const StyledText = styled.p`
   && {
     ${(props) => props.marginBottom && `margin-bottom: ${props.marginBottom}px;`};
     ${(props) => props.font()};
+    color: white;
+    font-style: Italic;
   }
 `;
 const getFontStyle = (type) => (fonts.style[type] ? fonts.style[type] : () => {});

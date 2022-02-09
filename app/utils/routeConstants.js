@@ -14,5 +14,8 @@ export default {
       padding: 20
     },
     exact: true
+  },
+  trackDetails: {
+    route: '/tracks/:trackId'
   }
 };

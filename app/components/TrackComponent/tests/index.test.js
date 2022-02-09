@@ -1,6 +1,8 @@
 import React from 'react';
-import { renderWithIntl } from '@utils/testUtils';
+import { Router } from 'react-router';
 import { fireEvent } from '@testing-library/dom';
+import { renderWithIntl, timeout } from '@utils/testUtils';
+import history from '@app/utils/history';
 import TrackComponent from '../index';
 import { translate } from '@app/components/IntlGlobalProvider/index';
 
@@ -59,4 +61,29 @@ it('should render the track details unavailable messages in case any props are u
   expect(getByText(artistDataUnavailable)).toBeInTheDocument();
   expect(getByText(imageUnavailable)).toBeInTheDocument();
   expect(getByText(previewUnavailable)).toBeInTheDocument();
+});
+
+it('should redirect to /trackId when clicked on Clickable component', async () => {
+  const trackName = 'See you Again';
+  const artistName = 'Charlie Puth';
+  const trackId = 1445140962;
+  const previewUrl =
+    'https://is4-ssl.mzstatic.com/image/thumb/Podcasts125/v4/72/46/63/724663b9-46ac-ab25-c167-546ef48f7ed5/mza_1727273594955964910.jpg/60x60bb.jpg';
+  const artworkUrl100 =
+    'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5d/b0/e4/5db0e413-9d75-d04c-5e95-ea9fc6361084/mzaf_16693952033856250131.plus.aac.p.m4a';
+  const { getByTestId } = renderWithIntl(
+    <Router history={history}>
+      <TrackComponent
+        trackName={trackName}
+        artistName={artistName}
+        previewUrl={previewUrl}
+        artworkUrl100={artworkUrl100}
+        trackId={trackId}
+      />
+    </Router>
+  );
+  const historySpy = jest.spyOn(history, 'push');
+  fireEvent.click(getByTestId('TrackCard'));
+  await timeout(500);
+  expect(historySpy).toHaveBeenCalledWith(`/tracks/${trackId}`);
 });

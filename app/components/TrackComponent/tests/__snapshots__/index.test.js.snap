@@ -4,7 +4,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ant-card ant-card-bordered TrackComponent__TrackCard-sc-1y7fh5t-0 dtHKSJ"
+      class="ant-card ant-card-bordered TrackComponent__TrackCard-sc-1y7fh5t-0 gdjEEB"
       data-testid="TrackCard"
     >
       <div
@@ -17,7 +17,7 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
             class="ant-card-head-title"
           >
             <p
-              class="T__StyledText-gjlic1-0 fPbJth"
+              class="T__StyledText-gjlic1-0 iGfozg"
               data-testid="t"
             >
               No track name available
@@ -29,19 +29,19 @@ exports[`<TrackComponent /> should render and match the snapshot 1`] = `
         class="ant-card-body"
       >
         <p
-          class="T__StyledText-gjlic1-0 kYcyRq"
+          class="T__StyledText-gjlic1-0 iVJYgn"
           data-testid="t"
         >
           Image Unavailable
         </p>
         <p
-          class="T__StyledText-gjlic1-0 kYcyRq"
+          class="T__StyledText-gjlic1-0 iVJYgn"
           data-testid="t"
         >
           No artist data available
         </p>
         <p
-          class="T__StyledText-gjlic1-0 kYcyRq"
+          class="T__StyledText-gjlic1-0 iVJYgn"
           data-testid="t"
         >
           No preview available
