@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router } from 'react-router';
-import { renderWithIntl, timeout } from '@utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
+import { renderWithIntl, timeout } from '@utils/testUtils';
 import history from '@app/utils/history';
 import TrackComponent from '../index';
 import { translate } from '@app/components/IntlGlobalProvider/index';
