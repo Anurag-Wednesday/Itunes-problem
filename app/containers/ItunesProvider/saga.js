@@ -34,16 +34,12 @@ export function* getTrackById(action) {
       };
 
       yield put(successGetTrackInfo(updatedResults));
-      yield put(successGetTrackById(data));
+      yield put(successGetTrackById(data.results[0]));
     } else {
       yield put(failureGetTrackInfo(data));
     }
   } else {
-    const data = {
-      resultCount: 1,
-      results: trackFound
-    };
-    yield put(successGetTrackById(data));
+    yield put(successGetTrackById(...trackFound));
   }
 }
 

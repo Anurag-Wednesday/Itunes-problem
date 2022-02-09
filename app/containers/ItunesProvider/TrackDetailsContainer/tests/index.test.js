@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { fireEvent } from '@testing-library/dom';
 import { renderProvider, timeout } from '@utils/testUtils';
 import { TrackDetailsTest as TrackDetailsContainer, mapDispatchToProps } from '../index';
 import { searchContainerTypes } from '../../reducer';
@@ -15,20 +15,15 @@ describe('<TrackDetails /> container tests', () => {
     expect(baseElement).toMatchSnapshot();
   });
 
-  it('should call dispatchGetTrackById if TrackId is not present in the data', async () => {
-    renderProvider(<TrackDetailsContainer dispatchGetTrackById={submitSpy} trackResults={null} />);
-    const { trackId } = useParams();
-    await timeout(500);
-    expect(submitSpy).toBeCalledWith(trackId);
-  });
-
-  it('should render error message when the search goes wrong', () => {
+  it('should render error message when the search goes wrong and give retry button to try again', () => {
     const defaultError = 'something_went_wrong';
     const { getByTestId } = renderProvider(
       <TrackDetailsContainer trackErrors={defaultError} dispatchGetTrackById={submitSpy} />
     );
     expect(getByTestId('error-message')).toBeInTheDocument();
     expect(getByTestId('error-message').textContent).toBe(defaultError);
+    fireEvent.click(getByTestId('retry-button'));
+    expect(submitSpy).toBeCalled();
   });
 
   it('should should render the TrackDetailsComponent if data is present ', async () => {

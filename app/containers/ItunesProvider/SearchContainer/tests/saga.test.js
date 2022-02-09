@@ -1,8 +1,9 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
 import searchContainerSaga, { getTrackById, getTrackList } from '../../saga';
 import { searchContainerTypes } from '../../reducer';
 import { apiResponseGenerator } from '@app/utils/testUtils';
 import { getList } from '@services/trackApi';
+import { selectTrackResults } from '../../selectors';
 
 describe('SearchContainer saga tests', () => {
   const generator = searchContainerSaga();
@@ -49,12 +50,11 @@ describe('SearchContainer saga tests', () => {
       resultCount: 1,
       results: [{ trackName: 'See you again', trackId }]
     };
-    getTrackByIdGenerator.next(trackResults).value;
-
+    expect(getTrackByIdGenerator.next(trackResults).value.type).toEqual(select(selectTrackResults(trackResults)).type);
     expect(getTrackByIdGenerator.next(trackResults).value).toEqual(
       put({
         type: searchContainerTypes.SUCCESS_GET_TRACK_BY_ID,
-        item: trackResults
+        item: trackResults.results[0]
       })
     );
   });
@@ -71,13 +71,22 @@ it('should call the api and add data if the trackId is not present', () => {
     resultCount: 1,
     results: [{ trackName: 'See you again', trackId: 410011 }]
   };
-  getTrackByIdGenerator.next(trackResults).value;
-  getTrackByIdGenerator.next(trackResults).value;
-  getTrackByIdGenerator.next(apiResponseGenerator(true, trackSearch));
-  expect(getTrackByIdGenerator.next().value).toEqual(
+  const addedResults = {
+    resultCount: 2,
+    results: [
+      { trackName: 'See you again', trackId: 410011 },
+      { trackName: 'See you tomorrow', trackId: 410013 }
+    ]
+  };
+  expect(getTrackByIdGenerator.next(trackResults).value.type).toEqual(select(selectTrackResults(trackResults)).type);
+  expect(getTrackByIdGenerator.next(trackResults).value).toEqual(call(getList, trackId));
+  expect(getTrackByIdGenerator.next(apiResponseGenerator(true, trackSearch)).value).toEqual(
+    put({ type: searchContainerTypes.SUCCESS_GET_TRACK_INFO, data: addedResults })
+  );
+  expect(getTrackByIdGenerator.next(trackResults).value).toEqual(
     put({
       type: searchContainerTypes.SUCCESS_GET_TRACK_BY_ID,
-      item: trackSearch
+      item: trackSearch.results[0]
     })
   );
 });
@@ -89,7 +98,7 @@ it('should call the failureGetRepos action if the response from the API fails', 
   };
   let getTrackByIdGenerator = getTrackById({ searchId: trackId });
   getTrackByIdGenerator.next(trackError).value;
-  getTrackByIdGenerator.next(trackError).value;
+  expect(getTrackByIdGenerator.next(trackError).value).toEqual(call(getList, trackId));
   expect(getTrackByIdGenerator.next(apiResponseGenerator(false, trackError)).value).toEqual(
     put({
       type: searchContainerTypes.FAILURE_GET_TRACK_INFO,
