@@ -143,6 +143,9 @@ export function HomeContainer({
       <RightContent>
         <StyledT onClick={handleStoriesClick} data-testid="redirect" id="stories" />
       </RightContent>
+      <button data-testid="redirectToTracks" onClick={() => history.push('/tracks')}>
+        Go to Tracks API
+      </button>
       <CustomCard title={intl.formatMessage({ id: 'repo_search' })} maxwidth={maxwidth}>
         <T marginBottom={10} id="get_repo_details" />
         <Search

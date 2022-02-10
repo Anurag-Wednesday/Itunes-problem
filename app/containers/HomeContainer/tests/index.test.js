@@ -153,6 +153,9 @@ describe('<HomeContainer /> tests', () => {
     fireEvent.click(getByTestId('redirect'));
     await timeout(500);
     expect(historySpy).toHaveBeenCalledWith('/stories');
+    fireEvent.click(getByTestId('redirectToTracks'));
+    await timeout(500);
+    expect(historySpy).toHaveBeenCalledWith('/tracks');
   });
 
   it('should render Skeleton Comp when "loading" is true', async () => {
