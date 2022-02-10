@@ -12,7 +12,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
 import { selectSearchContainer, selectTrackResults, selectTrackErrors, selectSearchTerm } from '../selectors';
-import For from '@app/components/For';
 import searchContainerSaga from '../saga';
 import { colors } from '@app/themes/index';
 import { searchContainerCreators } from '../reducer';
@@ -74,7 +73,6 @@ export function SearchContainer({
 }) {
   const [loading, setLoading] = useState(false);
   const [playingSong, setPlayingSong] = useState(null);
-
   const handleOnActionClick = (track, type) => {
     if (type === 'play') {
       setPlayingSong(track);
@@ -123,13 +121,11 @@ export function SearchContainer({
                 <T type="subText" id="tracks_found" values={{ resultCount }} />
               </If>
             </Skeleton>
-            <For
-              of={results}
-              ParentComponent={TrackLayoutContainer}
-              renderItem={(item, index) => (
-                <TrackComponent key={index} {...item} handleOnActionClick={handleOnActionClick} />
-              )}
-            />
+            <TrackLayoutContainer>
+              {Object.values(results).map((item, idx) => (
+                <TrackComponent key={idx} {...item} handleOnActionClick={handleOnActionClick} />
+              ))}
+            </TrackLayoutContainer>
           </CustomCard>
         </Container>
       </If>

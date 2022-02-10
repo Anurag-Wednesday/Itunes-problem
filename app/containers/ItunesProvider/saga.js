@@ -3,6 +3,7 @@ import { getList } from '@app/services/trackApi';
 import { searchContainerTypes, searchContainerCreators } from './reducer';
 import { selectTrackResults } from './selectors';
 import { get, isEmpty } from 'lodash';
+import { convertArrayToObject } from '@app/utils/dataUtils';
 
 // Individual exports for testing
 
@@ -13,7 +14,14 @@ export function* getTrackList(action) {
   const response = yield call(getList, action.searchTerm);
   const { data, ok } = response;
   if (ok) {
-    yield put(successGetTrackInfo(data));
+    const results = get(data, 'results', []);
+    const count = get(data, 'resultCount', 0);
+    const convertedData = convertArrayToObject(results, 'trackId');
+    const trackResult = {
+      resultCount: count,
+      results: convertedData
+    };
+    yield put(successGetTrackInfo(trackResult));
   } else {
     yield put(failureGetTrackInfo(data));
   }
@@ -21,25 +29,25 @@ export function* getTrackList(action) {
 
 export function* getTrackById(action) {
   const trackResults = yield select(selectTrackResults());
-  const results = get(trackResults, 'results', []);
-  const trackFound = results.filter((item) => item?.trackId == action.searchId);
+  const results = get(trackResults, 'results', {});
+  const trackFound = results[action.searchId];
   if (isEmpty(trackFound)) {
     const response = yield call(getList, action.searchId);
-
     const { data, ok } = response;
     if (ok) {
+      const searchedResult = get(data, 'results', []);
+      const updatedData = convertArrayToObject(searchedResult, 'trackId');
       const updatedResults = {
         resultCount: trackResults.resultCount + 1,
-        results: [...trackResults.results, data.results[0]]
+        results: { ...results, ...updatedData }
       };
-
       yield put(successGetTrackInfo(updatedResults));
-      yield put(successGetTrackById(data.results[0]));
+      yield put(successGetTrackById(Object.values(updatedData)[0]));
     } else {
       yield put(failureGetTrackInfo(data));
     }
   } else {
-    yield put(successGetTrackById(...trackFound));
+    yield put(successGetTrackById(trackFound));
   }
 }
 

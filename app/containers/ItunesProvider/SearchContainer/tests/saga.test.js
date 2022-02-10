@@ -30,13 +30,18 @@ describe('SearchContainer saga tests', () => {
 
   it('should ensure that the action SUCCESS_GET_TRACK_INFO is dispatched when the api call succeeds', () => {
     getTrackInfoGenerator = getTrackList({ searchTerm: searchName });
+    const trackId = 411014;
     const res = getTrackInfoGenerator.next().value;
     expect(res).toEqual(call(getList, searchName));
     const trackResponse = {
-      totalCount: 1,
-      items: [{ trackName: searchName }]
+      resultCount: 1,
+      results: { 411014: { trackName: searchName, trackId: trackId } }
     };
-    expect(getTrackInfoGenerator.next(apiResponseGenerator(true, trackResponse)).value).toEqual(
+    const trackResult = {
+      resultCount: 1,
+      results: [{ trackId: 411014, trackName: searchName }]
+    };
+    expect(getTrackInfoGenerator.next(apiResponseGenerator(true, trackResult)).value).toEqual(
       put({
         type: searchContainerTypes.SUCCESS_GET_TRACK_INFO,
         data: trackResponse
@@ -46,22 +51,25 @@ describe('SearchContainer saga tests', () => {
   it('should check if the trackId is present in the store before calling getList ', () => {
     const trackId = 411014;
     let getTrackByIdGenerator = getTrackById({ searchId: trackId });
-    const trackResults = {
+    const trackResponse = {
       resultCount: 1,
-      results: [{ trackName: 'See you again', trackId }]
+      results: { 411014: { trackName: searchName, trackId: trackId } }
     };
-    expect(getTrackByIdGenerator.next(trackResults).value.type).toEqual(select(selectTrackResults(trackResults)).type);
-    expect(getTrackByIdGenerator.next(trackResults).value).toEqual(
+
+    expect(getTrackByIdGenerator.next(trackResponse).value.type).toEqual(
+      select(selectTrackResults(trackResponse)).type
+    );
+    expect(getTrackByIdGenerator.next(trackResponse).value).toEqual(
       put({
         type: searchContainerTypes.SUCCESS_GET_TRACK_BY_ID,
-        item: trackResults.results[0]
+        item: trackResponse.results[trackId]
       })
     );
   });
 });
 
 it('should call the api and add data if the trackId is not present', () => {
-  const trackId = 411014;
+  const trackId = 411013;
   const trackSearch = {
     resultCount: 1,
     results: [{ trackName: 'See you tomorrow', trackId: 410013 }]
@@ -69,14 +77,14 @@ it('should call the api and add data if the trackId is not present', () => {
   let getTrackByIdGenerator = getTrackById({ searchId: trackId });
   const trackResults = {
     resultCount: 1,
-    results: [{ trackName: 'See you again', trackId: 410011 }]
+    results: { 410011: { trackName: 'See you again', trackId: 410011 } }
   };
   const addedResults = {
     resultCount: 2,
-    results: [
-      { trackName: 'See you again', trackId: 410011 },
-      { trackName: 'See you tomorrow', trackId: 410013 }
-    ]
+    results: {
+      410013: { trackName: 'See you tomorrow', trackId: 410013 },
+      410011: { trackName: 'See you again', trackId: 410011 }
+    }
   };
   expect(getTrackByIdGenerator.next(trackResults).value.type).toEqual(select(selectTrackResults(trackResults)).type);
   expect(getTrackByIdGenerator.next(trackResults).value).toEqual(call(getList, trackId));
