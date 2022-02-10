@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies #3
         run: yarn
       - name: Build # 4
-        run: export BRANCH_NAME=${{ steps.branch.outputs.branch }} && yarn build:uat
+        run: export BRANCH_NAME=${{ steps.vars.outputs.branch }} && yarn build:uat
       - name: AWS Deploy #5
         uses: jakejarvis/s3-sync-action@v0.5.0
         with:

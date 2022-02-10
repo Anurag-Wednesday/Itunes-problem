@@ -153,7 +153,7 @@ describe('<HomeContainer /> tests', () => {
     fireEvent.click(getByTestId('redirect'));
     await timeout(500);
     expect(historySpy).toHaveBeenCalledWith('/stories');
-    fireEvent.click(getByTestId('redirectToTracks'));
+    fireEvent.click(getByTestId('redirect-to-tracks'));
     await timeout(500);
     expect(historySpy).toHaveBeenCalledWith('/tracks');
   });

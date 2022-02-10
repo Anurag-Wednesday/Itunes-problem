@@ -16,11 +16,12 @@ exports[`<HomeContainer /> tests should render and match the snapshot 1`] = `
           Go to Storybook
         </p>
       </div>
-      <button
-        data-testid="redirectToTracks"
+      <p
+        class="T__StyledText-gjlic1-0 iVJYgn HomeContainer__StyledT-l0s8pp-3 fYCmLU"
+        data-testid="redirect-to-tracks"
       >
-        Go to Tracks API
-      </button>
+        Go to Tracks
+      </p>
       <div
         class="ant-card ant-card-bordered HomeContainer__CustomCard-l0s8pp-0 kPJcqJ"
         maxwidth="500"

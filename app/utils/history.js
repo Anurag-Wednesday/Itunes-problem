@@ -1,21 +1,57 @@
 import { createBrowserHistory } from 'history';
 import routeConstants from '@utils/routeConstants';
-const routes = Object.keys(routeConstants);
-const pathname = window.location.pathname;
-let baseUrl = '';
-if (process.env.ENVIRONMENT_NAME === 'uat') {
-  routes.forEach((routeKey) => {
-    const route = routeConstants[routeKey].route;
-    if (pathname.includes(route)) {
-      if (pathname.substring(pathname.length - route.length, pathname.length) === route) {
-        baseUrl = pathname.substring(0, pathname.length - route.length);
-      }
-      if (pathname.substring(pathname.length - route.length, pathname.length - 1) === `${route}/`) {
-        baseUrl = pathname.substring(0, pathname.length - route.length - 1);
-      }
-    }
-  });
-}
 
-const history = createBrowserHistory({ basename: baseUrl });
+export const setbaseUrl = () => {
+  let baseUrl;
+  const routes = Object.keys(routeConstants);
+  const pathname = window.location.pathname;
+  if (process.env.ENVIRONMENT_NAME === 'uat') {
+    routes.forEach((routeKey) => {
+      let route = routeConstants[routeKey].route;
+      const pathnames = pathname.split('/');
+      const ids = [];
+      let index = 0;
+      pathnames.forEach((p) => {
+        const num = parseInt(p, 10);
+        if (!Number.isNaN(num)) {
+          ids.push({ value: p, startIndex: index });
+        }
+
+        index += p.length + 1;
+      });
+      let idCounter = 0;
+      while (ids.length && idCounter < ids.length && route.includes(':')) {
+        const currentSegmentId = pathname.substring(
+          ids[idCounter].startIndex,
+          ids[idCounter].startIndex + ids[idCounter].value.length
+        );
+        const lastIndexOfColon = route.indexOf(':');
+        let indexOfSlash = route.length;
+        for (let i = lastIndexOfColon; i < route.length; i++) {
+          if (route.charAt(i) === '/') {
+            indexOfSlash = i;
+            break;
+          }
+        }
+        route = route.replace(route.substring(lastIndexOfColon, indexOfSlash), currentSegmentId);
+        idCounter++;
+      }
+
+      if (pathname.includes(route)) {
+        // baseUrl = route.replace(pathname, '');
+
+        if (pathname.substring(pathname.length - route.length, pathname.length) === route) {
+          baseUrl = pathname.substring(0, pathname.length - route.length);
+        }
+        if (pathname.substring(pathname.length - route.length, pathname.length - 1) === `${route}/`) {
+          baseUrl = pathname.substring(0, pathname.length - route.length - 1);
+        }
+      }
+    });
+  }
+  console.log({ baseUrl });
+  return baseUrl;
+};
+
+const history = createBrowserHistory({ basename: process.env.BRANCH_NAME });
 export default history;
