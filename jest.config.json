@@ -11,6 +11,7 @@
     "!**/loadable.js",
     "!app/*/*/*/Loadable.js",
     "!**/apiUtils.js",
+    "!**/history.js",
     "!**/testUtils.js",
     "!**/stories/**",
     "!**/themes/index.js",
