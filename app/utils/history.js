@@ -38,8 +38,9 @@ export const setbaseUrl = () => {
       }
       if (pathname.includes(route)) {
         if (pathname.substring(pathname.length - route.length, pathname.length) === route) {
-          baseUrl = pathname.substring(pathname.length - route.length);
+          baseUrl = pathname.substring(0, pathname.length - route.length);
         }
+
         if (pathname.substring(pathname.length - route.length - 1, pathname.length) === `${route}/`) {
           baseUrl = pathname.substring(0, pathname.length - route.length - 1);
         }
@@ -48,6 +49,5 @@ export const setbaseUrl = () => {
   }
   return baseUrl;
 };
-
 const history = createBrowserHistory({ basename: setbaseUrl() });
 export default history;

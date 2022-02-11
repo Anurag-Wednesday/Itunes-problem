@@ -16,7 +16,7 @@ describe('Tests for baseUrl method in history', () => {
   });
   it('should set the base path according to the routes in uat', () => {
     process.env.ENVIRONMENT_NAME = 'uat';
-    expect(setbaseUrl()).toBe('/');
+    expect(setbaseUrl()).toBe('');
   });
   it('should set the base path according to the routes even when the path name has query params ', () => {
     process.env.ENVIRONMENT_NAME = 'uat';
