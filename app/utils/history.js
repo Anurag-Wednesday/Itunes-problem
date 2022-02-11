@@ -16,6 +16,7 @@ export const setbaseUrl = () => {
         if (!Number.isNaN(num)) {
           ids.push({ value: p, startIndex: index });
         }
+
         index += p.length + 1;
       });
       let idCounter = 0;
