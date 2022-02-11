@@ -39,4 +39,10 @@ describe('<TrackDetailsComponent />', () => {
     expect(baseElement.getElementsByClassName('ant-carousel').length).toBe(1);
     expect(getAllByTestId('carousel-image').length).toEqual(7);
   });
+
+  it('should render the tag for explicitness when the track is explicit ', () => {
+    const trackExplicitness = 'explicit';
+    const { baseElement } = renderWithIntl(<TrackDetailsComponent trackExplicitness={trackExplicitness} />);
+    expect(baseElement.getElementsByClassName('ant-tag').length).toBe(1);
+  });
 });

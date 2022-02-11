@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Carousel } from 'antd';
+import { Carousel, Tag } from 'antd';
 import { isEmpty } from 'lodash';
 import styled from 'styled-components';
 import If from '@components/If';
@@ -15,6 +15,12 @@ const Details = styled.div`
     background-color: ${colors.background};
     color: white;
     margin-left: 7rem;
+  }
+`;
+
+const StyledTag = styled(Tag)`
+  && {
+    margin-left: 0.5rem;
   }
 `;
 
@@ -75,7 +81,8 @@ export function TrackDetailsComponent({
   artworkUrl100,
   collectionName,
   primaryGenreName,
-  trackViewUrl
+  trackViewUrl,
+  trackExplicitness
 }) {
   return (
     <TrackDetailsCard data-testid="track-details-component">
@@ -90,6 +97,9 @@ export function TrackDetailsComponent({
         <TrackTitle>
           <If condition={!isEmpty(trackName)} otherwise={<T data-testid="no-track-name" id="no_track_name" />}>
             <T type="heading" id="track_details_name" data-testid="track_title" values={{ Track: trackName }} />
+          </If>
+          <If condition={trackExplicitness === 'explicit'}>
+            <StyledTag color="red">E</StyledTag>
           </If>
         </TrackTitle>
         <ArtistName>
@@ -128,7 +138,8 @@ TrackDetailsComponent.propTypes = {
   trackViewUrl: PropTypes.string,
   previewUrl: PropTypes.string,
   artworkUrl100: PropTypes.string,
-  primaryGenreName: PropTypes.string
+  primaryGenreName: PropTypes.string,
+  trackExplicitness: PropTypes.string
 };
 
 export default memo(TrackDetailsComponent);

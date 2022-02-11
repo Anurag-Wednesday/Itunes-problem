@@ -2,7 +2,7 @@ import { createBrowserHistory } from 'history';
 import routeConstants from '@utils/routeConstants';
 
 export const setbaseUrl = () => {
-  let baseUrl;
+  let baseUrl = '';
   const routes = Object.keys(routeConstants);
   const pathname = window.location.pathname;
   if (process.env.ENVIRONMENT_NAME === 'uat') {
@@ -16,7 +16,6 @@ export const setbaseUrl = () => {
         if (!Number.isNaN(num)) {
           ids.push({ value: p, startIndex: index });
         }
-
         index += p.length + 1;
       });
       let idCounter = 0;
@@ -36,22 +35,18 @@ export const setbaseUrl = () => {
         route = route.replace(route.substring(lastIndexOfColon, indexOfSlash), currentSegmentId);
         idCounter++;
       }
-
       if (pathname.includes(route)) {
-        // baseUrl = route.replace(pathname, '');
-
         if (pathname.substring(pathname.length - route.length, pathname.length) === route) {
           baseUrl = pathname.substring(0, pathname.length - route.length);
         }
-        if (pathname.substring(pathname.length - route.length, pathname.length - 1) === `${route}/`) {
+        if (pathname.substring(pathname.length - route.length - 1, pathname.length) === `${route}/`) {
           baseUrl = pathname.substring(0, pathname.length - route.length - 1);
         }
       }
     });
   }
-  console.log({ baseUrl });
   return baseUrl;
 };
 
-const history = createBrowserHistory({ basename: process.env.BRANCH_NAME });
+const history = createBrowserHistory(setbaseUrl());
 export default history;
