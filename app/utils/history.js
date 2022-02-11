@@ -25,15 +25,15 @@ export const setbaseUrl = () => {
           ids[idCounter].startIndex,
           ids[idCounter].startIndex + ids[idCounter].value.length
         );
-        const lastIndexOfColon = route.indexOf(':');
+        const indexOfColon = route.indexOf(':');
         let indexOfSlash = route.length;
-        for (let i = lastIndexOfColon; i < route.length; i++) {
+        for (let i = indexOfColon; i < route.length; i++) {
           if (route.charAt(i) === '/') {
             indexOfSlash = i;
             break;
           }
         }
-        route = route.replace(route.substring(lastIndexOfColon, indexOfSlash), currentSegmentId);
+        route = route.replace(route.substring(indexOfColon, indexOfSlash), currentSegmentId);
         idCounter++;
       }
       if (pathname.includes(route)) {
@@ -49,5 +49,5 @@ export const setbaseUrl = () => {
   return baseUrl;
 };
 
-const history = createBrowserHistory(setbaseUrl());
+const history = createBrowserHistory({ basename: setbaseUrl() });
 export default history;
