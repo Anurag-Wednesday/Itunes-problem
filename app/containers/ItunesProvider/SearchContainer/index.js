@@ -2,7 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Input, Skeleton, Card } from 'antd';
+import { Input, Skeleton, Card, notification, message } from 'antd';
 import get from 'lodash/get';
 import { isEmpty } from 'lodash';
 import debounce from 'lodash/debounce';
@@ -75,6 +75,10 @@ export function SearchContainer({
   const [playingSong, setPlayingSong] = useState(null);
   const handleOnActionClick = (track, type) => {
     if (type === 'play') {
+      notification.open({
+        message: 'Now Playing',
+        description: `${track.id}`
+      });
       setPlayingSong(track);
       if (playingSong && playingSong !== track) {
         playingSong.pause();
@@ -103,6 +107,7 @@ export function SearchContainer({
     if (!isEmpty(sTerm)) {
       dispatchGetTrackList(sTerm);
     } else {
+      message.warning('Cleared Search');
       dispatchClearTrackInfo();
     }
   };

@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Card } from 'antd';
+import { Card, Modal } from 'antd';
 import { colors } from '@app/themes/index';
 import styled from 'styled-components';
 import T from '@components/T';
@@ -46,41 +46,59 @@ const Title = styled(T)`
   }
 `;
 
+const StyledText = styled(T)`
+  && {
+    color: ${colors.text};
+  }
+`;
 export function TrackComponent({ trackId, trackName, artworkUrl100, artistName, previewUrl, handleOnActionClick }) {
+  const [visible, setVisible] = useState(false);
   function onActionHandler(evt) {
     handleOnActionClick(evt.target, evt.type);
   }
 
   return (
-    <TrackCard
-      onClick={() => history.push(`/tracks/${trackId}`)}
-      data-testid="TrackCard"
-      title={
-        <If condition={!isEmpty(trackName)} otherwise={<T type="subheading" id="no_track_name" />}>
-          <Title type="subheading" id="name" values={{ trackName }} />
+    <>
+      <TrackCard
+        onClick={() => setVisible(true)}
+        data-testid="TrackCard"
+        title={
+          <If condition={!isEmpty(trackName)} otherwise={<T type="subheading" id="no_track_name" />}>
+            <Title type="subheading" id="name" values={{ trackName }} />
+          </If>
+        }
+      >
+        <If condition={!isEmpty(artworkUrl100)} otherwise={<T id="image_unavailable" />}>
+          <TrackImage alt={trackName} src={artworkUrl100} />
         </If>
-      }
-    >
-      <If condition={!isEmpty(artworkUrl100)} otherwise={<T id="image_unavailable" />}>
-        <TrackImage alt={trackName} src={artworkUrl100} />
-      </If>
-      <If condition={!isEmpty(artistName)} otherwise={<T id="artist_data_unavailable" />}>
-        <T type="subText" data-testid="artist_name" id="artist_name" values={{ artist: artistName }} />
-      </If>
-      <If condition={!isEmpty(trackName)} otherwise={trackName}>
-        <T type="subText" data-testid="name" id="name" values={{ trackName }} />
-      </If>
-      <If condition={!isEmpty(previewUrl)} otherwise={<T id="preview_unavailable" />}>
-        <AudioPlayer
-          data-testid={trackName}
-          onPlay={(evt) => onActionHandler(evt)}
-          onPause={(evt) => onActionHandler(evt)}
-          controls
-        >
-          <source src={previewUrl} />
-        </AudioPlayer>
-      </If>
-    </TrackCard>
+        <If condition={!isEmpty(artistName)} otherwise={<T id="artist_data_unavailable" />}>
+          <T type="subText" data-testid="artist_name" id="artist_name" values={{ artist: artistName }} />
+        </If>
+        <If condition={!isEmpty(trackName)} otherwise={trackName}>
+          <T type="subText" data-testid="name" id="name" values={{ trackName }} />
+        </If>
+        <If condition={!isEmpty(previewUrl)} otherwise={<T id="preview_unavailable" />}>
+          <AudioPlayer
+            data-testid={trackName}
+            id={trackName}
+            onPlay={(evt) => onActionHandler(evt)}
+            onPause={(evt) => onActionHandler(evt)}
+            controls
+          >
+            <source src={previewUrl} />
+          </AudioPlayer>
+        </If>
+      </TrackCard>
+      <Modal
+        data-testid="modal"
+        title="Leave Page?"
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        onOk={() => history.push(`/tracks/${trackId}`)}
+      >
+        <StyledText type="subText" id="modal_text" values={{ track: trackName }} />
+      </Modal>
+    </>
   );
 }
 

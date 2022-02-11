@@ -27,5 +27,6 @@
   "track_details_collectionName": "{Collection}",
   "track_details_genre": "{Genre}",
   "track_details_URL": "View on Itunes store",
-  "track_list": "TrackList"
+  "track_list": "TrackList",
+  "modal_text": "Go to the details for {track}?"
 }

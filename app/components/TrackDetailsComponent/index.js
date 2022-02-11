@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Carousel, Tag } from 'antd';
+import { Carousel, Tag, Popover } from 'antd';
 import { isEmpty } from 'lodash';
 import styled from 'styled-components';
 import If from '@components/If';
@@ -87,11 +87,18 @@ export function TrackDetailsComponent({
   return (
     <TrackDetailsCard data-testid="track-details-component">
       <If condition={!isEmpty(artworkUrl100)} otherwise={<T data-testid="image_unavailable" id="image_unavailable" />}>
-        <StyledCarousel autoplay dotPosition="bottom">
-          <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
-          <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
-          <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
-        </StyledCarousel>
+        <Popover
+          title="Title"
+          content={
+            <T type="subheading" id="track_details_name" data-testid="track_title" values={{ Track: trackName }} />
+          }
+        >
+          <StyledCarousel autoplay dotPosition="bottom">
+            <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
+            <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
+            <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
+          </StyledCarousel>
+        </Popover>
       </If>
       <Details>
         <TrackTitle>
@@ -99,7 +106,11 @@ export function TrackDetailsComponent({
             <T type="heading" id="track_details_name" data-testid="track_title" values={{ Track: trackName }} />
           </If>
           <If condition={trackExplicitness === 'explicit'}>
-            <StyledTag color="red">E</StyledTag>
+            <Popover data-tesid="popover" content="Explicit track">
+              <StyledTag data-testid="explicit" color="red">
+                E
+              </StyledTag>
+            </Popover>
           </If>
         </TrackTitle>
         <ArtistName>
