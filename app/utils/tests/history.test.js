@@ -13,7 +13,7 @@ describe('Tests for baseUrl method in history', () => {
   });
   it('should not have any base path in production', () => {
     process.env.ENVIRONMENT_NAME = 'production';
-    expect(setbaseUrl()).toBe('');
+    expect(setbaseUrl()).toBe('/');
   });
   it('should set the base path according to the routes in uat', () => {
     process.env.ENVIRONMENT_NAME = 'uat';

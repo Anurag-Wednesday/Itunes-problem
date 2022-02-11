@@ -2,7 +2,7 @@ import { createBrowserHistory } from 'history';
 import routeConstants from '@utils/routeConstants';
 
 export const setbaseUrl = () => {
-  let baseUrl = '';
+  let baseUrl = '/';
   const routes = Object.keys(routeConstants);
   const pathname = window.location.pathname;
   if (process.env.ENVIRONMENT_NAME === 'uat') {
