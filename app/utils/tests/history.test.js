@@ -2,7 +2,6 @@ import { setbaseUrl } from '../history';
 
 describe('Tests for baseUrl method in history', () => {
   const OLD_ENV = process.env;
-  let baseUrl = '';
   beforeEach(() => {
     jest.resetModules();
     process.env = { ...OLD_ENV };
@@ -13,12 +12,11 @@ describe('Tests for baseUrl method in history', () => {
   });
   it('should not have any base path in production', () => {
     process.env.ENVIRONMENT_NAME = 'production';
-    expect(setbaseUrl()).toBe('/');
+    expect(setbaseUrl()).toBe('');
   });
   it('should set the base path according to the routes in uat', () => {
     process.env.ENVIRONMENT_NAME = 'uat';
-    setbaseUrl(baseUrl);
-    expect(setbaseUrl()).toBe('');
+    expect(setbaseUrl()).toBe('/');
   });
   it('should set the base path according to the routes even when the path name has query params ', () => {
     process.env.ENVIRONMENT_NAME = 'uat';
