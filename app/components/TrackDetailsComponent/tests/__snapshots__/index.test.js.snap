@@ -17,7 +17,7 @@ exports[`<TrackDetailsComponent /> should render and match the snapshot 1`] = `
         class="TrackDetailsComponent__Details-sc-1q5q059-0 ecyiHy"
       >
         <div
-          class="TrackDetailsComponent__TrackTitle-sc-1q5q059-2 bttfEo"
+          class="TrackDetailsComponent__TrackTitle-sc-1q5q059-2 aNhbq"
         >
           <p
             class="T__StyledText-gjlic1-0 iVJYgn"

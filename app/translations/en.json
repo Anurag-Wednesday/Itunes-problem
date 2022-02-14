@@ -28,5 +28,6 @@
   "track_details_genre": "{Genre}",
   "track_details_URL": "View on Itunes store",
   "track_list": "TrackList",
-  "modal_text": "Go to the details for {track}?"
+  "modal_text": "Go to the details for {track}?",
+  "upload": "Upload your own track"
 }
