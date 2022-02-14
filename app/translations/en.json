@@ -29,5 +29,12 @@
   "track_details_URL": "View on Itunes store",
   "track_list": "TrackList",
   "modal_text": "Go to the details for {track}?",
-  "upload": "Upload your own track"
+  "upload": "Upload your own track",
+  "input-track": "Please enter Track Name",
+  "input-artist": "Please enter Artist Name",
+  "input-collection": "Please enter Collection Name",
+  "input-genre": "Please enter the Genre",
+  "input-country": "Please enter the Country",
+  "input-date": "Please enter the release date",
+  "input-artwork": "Please input artwork"
 }

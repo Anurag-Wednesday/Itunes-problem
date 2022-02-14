@@ -110,9 +110,9 @@ exports[`<UploadTrack /> should render and match the snapshot 1`] = `
               <label
                 class="ant-form-item-required"
                 for="basic_trackName"
-                title="Track Name"
+                title=""
               >
-                Track Name
+                Please enter Track Name
               </label>
             </div>
             <div
@@ -144,9 +144,9 @@ exports[`<UploadTrack /> should render and match the snapshot 1`] = `
               <label
                 class="ant-form-item-required"
                 for="basic_artistName"
-                title="Artist Name"
+                title=""
               >
-                Artist Name
+                Please enter Artist Name
               </label>
             </div>
             <div
@@ -178,9 +178,9 @@ exports[`<UploadTrack /> should render and match the snapshot 1`] = `
               <label
                 class="ant-form-item-required"
                 for="basic_collectionName"
-                title="Collection Name"
+                title=""
               >
-                Collection Name
+                Please enter Collection Name
               </label>
             </div>
             <div

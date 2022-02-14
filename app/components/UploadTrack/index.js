@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react';
 import { Steps, Button, Form, Input, DatePicker, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import * as colors from '@app/themes/colors';
 import { TrackDetailsComponent } from '../TrackDetailsComponent/index';
@@ -69,24 +70,24 @@ export function UploadTrack() {
           onFinish={onFinish}
         >
           <StyledFormItem
-            label="Track Name"
+            label={<FormattedMessage id="input-track" />}
             name="trackName"
-            rules={[{ required: true, message: 'Please input your Track Name!' }]}
+            rules={[{ required: true, message: <FormattedMessage id="input-track" /> }]}
           >
             <StyledInput data-testid="track-input" />
           </StyledFormItem>
 
           <StyledFormItem
-            label="Artist Name"
+            label={<FormattedMessage id="input-artist" />}
             name="artistName"
-            rules={[{ required: true, message: 'Please input your Artist Name!' }]}
+            rules={[{ required: true, message: <FormattedMessage id="input-artist" /> }]}
           >
             <StyledInput data-testid="artist-name" />
           </StyledFormItem>
           <StyledFormItem
-            label="Collection Name"
+            label={<FormattedMessage id="input-collection" />}
             name="collectionName"
-            rules={[{ required: true, message: 'Please input your Collection Name!' }]}
+            rules={[{ required: true, message: <FormattedMessage id="input-collection" /> }]}
           >
             <StyledInput data-testid="collection-name" />
           </StyledFormItem>
@@ -112,23 +113,23 @@ export function UploadTrack() {
           onFinish={onFinish}
         >
           <StyledFormItem
-            label="Genre"
+            label={<FormattedMessage id="input-genre" />}
             name="primaryGenreName"
-            rules={[{ required: true, message: 'Please input your Genre!' }]}
+            rules={[{ required: true, message: <FormattedMessage id="input-genre" /> }]}
           >
             <StyledInput data-testid="genre-input" />
           </StyledFormItem>
           <StyledFormItem
-            label="Country"
+            label={<FormattedMessage id="input-genre" />}
             name="country"
-            rules={[{ required: true, message: 'Please input the track Country!' }]}
+            rules={[{ required: true, message: <FormattedMessage id="input-country" /> }]}
           >
             <StyledInput data-testid="country-input" />
           </StyledFormItem>
           <StyledFormItem
-            label="Release Date"
+            label={<FormattedMessage id="input-date" />}
             name="releaseDate"
-            rules={[{ required: false, message: 'Please input the release Date!' }]}
+            rules={[{ required: false, message: <FormattedMessage id="input-date" /> }]}
           >
             <DatePicker />
           </StyledFormItem>
@@ -154,9 +155,9 @@ export function UploadTrack() {
           onFinish={onFinish}
         >
           <StyledFormItem
-            label="Upload ArtWork"
+            label={<FormattedMessage id="input-date" />}
             name="artWorkUrl100"
-            rules={[{ required: true, message: 'Please upload artwork' }]}
+            rules={[{ required: true, message: <FormattedMessage id="input-date" /> }]}
           >
             <Upload data-testid="upload">
               <Button icon={<UploadOutlined />}>Click to Upload</Button>
