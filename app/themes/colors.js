@@ -7,7 +7,7 @@
 
 const primary = '#fcedda';
 const text = '#212529';
-const whiteText = '#fffff';
+const whiteText = 'white';
 const secondary = '#f8c49c';
 const success = '#28a745';
 const background = '#231f20';

@@ -16,6 +16,11 @@ export default {
     exact: true
   },
   trackDetails: {
-    route: '/tracks/:trackId'
+    route: '/tracks/:trackId',
+    exact: true
+  },
+  uploadTrack: {
+    route: '/tracks/upload/steps',
+    exact: true
   }
 };
