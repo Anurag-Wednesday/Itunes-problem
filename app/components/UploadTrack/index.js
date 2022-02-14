@@ -76,8 +76,8 @@ export function UploadTrack() {
           >
             <StyledInput data-testid="track-input" />
           </StyledFormItem>
-
           <StyledFormItem
+
             label={<FormattedMessage id="input-artist" />}
             name="artistName"
             rules={[{ required: true, message: <FormattedMessage id="input-artist" /> }]}
@@ -113,9 +113,11 @@ export function UploadTrack() {
           onFinish={onFinish}
         >
           <StyledFormItem
+
             label={<FormattedMessage id="input-genre" />}
             name="primaryGenreName"
             rules={[{ required: true, message: <FormattedMessage id="input-genre" /> }]}
+  
           >
             <StyledInput data-testid="genre-input" />
           </StyledFormItem>
