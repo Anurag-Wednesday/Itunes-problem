@@ -9,7 +9,7 @@ import UploadTrackPropDetails from '@components/UploadTrackPropDetails';
 import UploadTrackImage from '@components/UploadTrackImage';
 import For from '@components/For';
 import { TRACK_CREATION_STEPS } from '@app/utils/TrackCreationUtils';
-import { T } from '@components/T';
+import T from '@components/T';
 
 const StyledCard = styled.div`
   && {

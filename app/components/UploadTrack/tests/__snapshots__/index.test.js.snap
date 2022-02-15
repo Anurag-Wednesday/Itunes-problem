@@ -17,6 +17,7 @@ exports[`<UploadTrack /> should render and match the snapshot 1`] = `
           _store="[object Object]"
           class="undefined-item undefined-item-wait"
           props="[object Object]"
+          type="[object Object]"
         >
           <div
             class="undefined-item-container"
@@ -45,6 +46,7 @@ exports[`<UploadTrack /> should render and match the snapshot 1`] = `
           _store="[object Object]"
           class="undefined-item undefined-item-wait"
           props="[object Object]"
+          type="[object Object]"
         >
           <div
             class="undefined-item-container"
@@ -73,6 +75,7 @@ exports[`<UploadTrack /> should render and match the snapshot 1`] = `
           _store="[object Object]"
           class="undefined-item undefined-item-wait"
           props="[object Object]"
+          type="[object Object]"
         >
           <div
             class="undefined-item-container"

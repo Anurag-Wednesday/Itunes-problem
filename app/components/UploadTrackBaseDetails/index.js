@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Button, Form, Input } from 'antd';
 import { colors } from '@app/themes/index';
-import { T } from '../T/index';
+import T from '@components/T';
 
 const StyledInput = styled(Input)`
   && {
