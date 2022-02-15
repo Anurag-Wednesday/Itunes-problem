@@ -1,9 +1,3 @@
-/**
- *
- * Tests for UploadTrack
- *
- */
-
 import React from 'react';
 import { fireEvent } from '@testing-library/dom';
 import { renderWithIntl, timeout } from '@utils/testUtils';

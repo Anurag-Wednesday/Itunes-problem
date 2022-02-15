@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react';
 import { Steps, Button } from 'antd';
 import styled from 'styled-components';
 import * as colors from '@app/themes/colors';
-import { TrackDetailsComponent } from '../TrackDetailsComponent/index';
+import TrackDetailsComponent from '@components/TrackDetailsComponent';
 import UploadTrackBaseDetails from '@components/UploadTrackBaseDetails';
 import If from '../If/index';
 import UploadTrackPropDetails from '@components/UploadTrackPropDetails';
