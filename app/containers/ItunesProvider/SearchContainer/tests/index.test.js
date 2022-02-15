@@ -84,7 +84,7 @@ describe('<SearchContainer /> container tests', () => {
         'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5d/b0/e4/5db0e413-9d75-d04c-5e95-ea9fc6361084/mzaf_16693952033856250131.plus.aac.p.m4a'
     };
     const { getAllByTestId } = renderProvider(<TrackComponent item={data} />);
-    expect(getAllByTestId('TrackCard').length).toBe(resultCount);
+    expect(getAllByTestId('track_card').length).toBe(resultCount);
   });
 
   it('should set setPlayingSong if type passed to handleOnActionClick is play', async () => {

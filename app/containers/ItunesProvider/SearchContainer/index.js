@@ -89,7 +89,7 @@ export function SearchContainer({
   const handleOnActionClick = (track, type) => {
     if (type === 'play') {
       notification.open({
-        message: 'Now Playing',
+        message: intl.formatMessage({ id: 'now_playing' }),
         description: `${track.id}`
       });
       setPlayingSong(track);
@@ -120,7 +120,7 @@ export function SearchContainer({
     if (!isEmpty(sTerm)) {
       dispatchGetTrackList(sTerm);
     } else {
-      message.warning('Cleared Search');
+      message.warning(intl.formatMessage({ id: 'cleared' }));
       dispatchClearTrackInfo();
     }
   };

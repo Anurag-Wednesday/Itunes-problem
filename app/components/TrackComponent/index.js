@@ -61,7 +61,7 @@ export function TrackComponent({ trackId, trackName, artworkUrl100, artistName, 
     <>
       <TrackCard
         onClick={() => setVisible(true)}
-        data-testid="TrackCard"
+        data-testid="track_card"
         title={
           <If condition={!isEmpty(trackName)} otherwise={<T type="subheading" id="no_track_name" />}>
             <Title type="subheading" id="name" values={{ trackName }} />

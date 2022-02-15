@@ -8,234 +8,241 @@ exports[`<UploadTrack /> should render and match the snapshot 1`] = `
       data-testid="upload-track"
     >
       <div
-        class="ant-steps ant-steps-horizontal ant-steps-label-horizontal"
+        class="For__FlexContainer-zj0yt8-0 lbluFk"
+        data-testid="for"
+        orientation="row"
       >
         <div
-          class="ant-steps-item ant-steps-item-process ant-steps-item-active"
+          class="undefined-item undefined-item-wait"
         >
           <div
-            class="ant-steps-item-container"
+            class="undefined-item-container"
           >
             <div
-              class="ant-steps-item-tail"
+              class="undefined-item-tail"
             />
             <div
-              class="ant-steps-item-icon"
+              class="undefined-item-icon"
             >
               <span
-                class="ant-steps-icon"
-              >
-                1
-              </span>
+                class="undefined-icon"
+              />
             </div>
             <div
-              class="ant-steps-item-content"
+              class="undefined-item-content"
             >
               <div
-                class="ant-steps-item-title"
+                class="undefined-item-title"
               />
             </div>
           </div>
         </div>
         <div
-          class="ant-steps-item ant-steps-item-wait"
+          class="undefined-item undefined-item-wait"
         >
           <div
-            class="ant-steps-item-container"
+            class="undefined-item-container"
           >
             <div
-              class="ant-steps-item-tail"
+              class="undefined-item-tail"
             />
             <div
-              class="ant-steps-item-icon"
+              class="undefined-item-icon"
             >
               <span
-                class="ant-steps-icon"
-              >
-                2
-              </span>
+                class="undefined-icon"
+              />
             </div>
             <div
-              class="ant-steps-item-content"
+              class="undefined-item-content"
             >
               <div
-                class="ant-steps-item-title"
+                class="undefined-item-title"
               />
             </div>
           </div>
         </div>
         <div
-          class="ant-steps-item ant-steps-item-wait"
+          class="undefined-item undefined-item-wait"
         >
           <div
-            class="ant-steps-item-container"
+            class="undefined-item-container"
           >
             <div
-              class="ant-steps-item-tail"
+              class="undefined-item-tail"
             />
             <div
-              class="ant-steps-item-icon"
+              class="undefined-item-icon"
             >
               <span
-                class="ant-steps-icon"
-              >
-                3
-              </span>
+                class="undefined-icon"
+              />
             </div>
             <div
-              class="ant-steps-item-content"
+              class="undefined-item-content"
             >
               <div
-                class="ant-steps-item-title"
+                class="undefined-item-title"
               />
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="steps-content"
+      <form
+        autocomplete="on"
+        class="ant-form ant-form-horizontal"
+        data-testid="form"
+        id="basic"
       >
-        <form
-          autocomplete="on"
-          class="ant-form ant-form-horizontal"
-          data-testid="form"
-          id="basic"
+        <div
+          class="ant-row ant-form-item UploadTrackBaseDetails__StyledFormItem-sc-6ef6u1-1 bNZrzC"
         >
           <div
-            class="ant-row ant-form-item UploadTrack__StyledFormItem-sc-7ttrjy-2 xcKPX"
+            class="ant-col ant-col-8 ant-form-item-label"
           >
-            <div
-              class="ant-col ant-col-8 ant-form-item-label"
+            <label
+              class="ant-form-item-required"
+              for="basic_trackName"
+              title=""
             >
-              <label
-                class="ant-form-item-required"
-                for="basic_trackName"
-                title=""
+              <p
+                class="T__StyledText-gjlic1-0 iVJYgn"
+                data-testid="t"
               >
                 Please enter Track Name
-              </label>
-            </div>
+              </p>
+            </label>
+          </div>
+          <div
+            class="ant-col ant-col-16 ant-form-item-control"
+          >
             <div
-              class="ant-col ant-col-16 ant-form-item-control"
+              class="ant-form-item-control-input"
             >
               <div
-                class="ant-form-item-control-input"
+                class="ant-form-item-control-input-content"
               >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input UploadTrack__StyledInput-sc-7ttrjy-1 htJzPi"
-                    data-testid="track-input"
-                    id="basic_trackName"
-                    type="text"
-                    value=""
-                  />
-                </div>
+                <input
+                  class="ant-input UploadTrackBaseDetails__StyledInput-sc-6ef6u1-0 hBJIzx"
+                  data-testid="track-input"
+                  id="basic_trackName"
+                  type="text"
+                  value=""
+                />
               </div>
             </div>
           </div>
+        </div>
+        <div
+          class="ant-row ant-form-item UploadTrackBaseDetails__StyledFormItem-sc-6ef6u1-1 bNZrzC"
+        >
           <div
-            class="ant-row ant-form-item UploadTrack__StyledFormItem-sc-7ttrjy-2 xcKPX"
+            class="ant-col ant-col-8 ant-form-item-label"
           >
-            <div
-              class="ant-col ant-col-8 ant-form-item-label"
+            <label
+              class="ant-form-item-required"
+              for="basic_artistName"
+              title=""
             >
-              <label
-                class="ant-form-item-required"
-                for="basic_artistName"
-                title=""
+              <p
+                class="T__StyledText-gjlic1-0 iVJYgn"
+                data-testid="t"
               >
                 Please enter Artist Name
-              </label>
-            </div>
+              </p>
+            </label>
+          </div>
+          <div
+            class="ant-col ant-col-16 ant-form-item-control"
+          >
             <div
-              class="ant-col ant-col-16 ant-form-item-control"
+              class="ant-form-item-control-input"
             >
               <div
-                class="ant-form-item-control-input"
+                class="ant-form-item-control-input-content"
               >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input UploadTrack__StyledInput-sc-7ttrjy-1 htJzPi"
-                    data-testid="artist-name"
-                    id="basic_artistName"
-                    type="text"
-                    value=""
-                  />
-                </div>
+                <input
+                  class="ant-input UploadTrackBaseDetails__StyledInput-sc-6ef6u1-0 hBJIzx"
+                  data-testid="artist-name"
+                  id="basic_artistName"
+                  type="text"
+                  value=""
+                />
               </div>
             </div>
           </div>
+        </div>
+        <div
+          class="ant-row ant-form-item UploadTrackBaseDetails__StyledFormItem-sc-6ef6u1-1 bNZrzC"
+        >
           <div
-            class="ant-row ant-form-item UploadTrack__StyledFormItem-sc-7ttrjy-2 xcKPX"
+            class="ant-col ant-col-8 ant-form-item-label"
           >
-            <div
-              class="ant-col ant-col-8 ant-form-item-label"
+            <label
+              class="ant-form-item-required"
+              for="basic_collectionName"
+              title=""
             >
-              <label
-                class="ant-form-item-required"
-                for="basic_collectionName"
-                title=""
+              <p
+                class="T__StyledText-gjlic1-0 iVJYgn"
+                data-testid="t"
               >
                 Please enter Collection Name
-              </label>
-            </div>
-            <div
-              class="ant-col ant-col-16 ant-form-item-control"
-            >
-              <div
-                class="ant-form-item-control-input"
-              >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <input
-                    class="ant-input UploadTrack__StyledInput-sc-7ttrjy-1 htJzPi"
-                    data-testid="collection-name"
-                    id="basic_collectionName"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
+              </p>
+            </label>
           </div>
           <div
-            class="ant-row ant-form-item UploadTrack__StyledFormItem-sc-7ttrjy-2 xcKPX"
+            class="ant-col ant-col-16 ant-form-item-control"
           >
             <div
-              class="ant-col ant-col-16 ant-col-offset-8 ant-form-item-control"
+              class="ant-form-item-control-input"
             >
               <div
-                class="ant-form-item-control-input"
+                class="ant-form-item-control-input-content"
               >
-                <div
-                  class="ant-form-item-control-input-content"
-                >
-                  <button
-                    class="ant-btn ant-btn-primary"
-                    data-testid="submit"
-                    type="submit"
-                  >
-                    <span>
-                      Next
-                    </span>
-                  </button>
-                </div>
+                <input
+                  class="ant-input UploadTrackBaseDetails__StyledInput-sc-6ef6u1-0 hBJIzx"
+                  data-testid="collection-name"
+                  id="basic_collectionName"
+                  type="text"
+                  value=""
+                />
               </div>
             </div>
           </div>
-        </form>
-      </div>
-      <div
-        class="steps-action"
-      />
+        </div>
+        <div
+          class="ant-row ant-form-item UploadTrackBaseDetails__StyledFormItem-sc-6ef6u1-1 bNZrzC"
+        >
+          <div
+            class="ant-col ant-col-16 ant-col-offset-8 ant-form-item-control"
+          >
+            <div
+              class="ant-form-item-control-input"
+            >
+              <div
+                class="ant-form-item-control-input-content"
+              >
+                <button
+                  class="ant-btn ant-btn-primary"
+                  data-testid="submit"
+                  type="submit"
+                >
+                  <p
+                    class="T__StyledText-gjlic1-0 iVJYgn"
+                    data-testid="t"
+                  >
+                    Next
+                  </p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
     <div
-      class="UploadTrack__TrackContainer-sc-7ttrjy-3 kDiFcG"
+      class="UploadTrack__TrackContainer-sc-7ttrjy-1 loqJII"
     >
       <div
         class="TrackDetailsComponent__TrackDetailsCard-sc-1q5q059-7 ijfgSK"

@@ -15,7 +15,7 @@ describe('<TrackComponent />', () => {
 
 it('should contain one TrackComponent', () => {
   const { getAllByTestId } = renderWithIntl(<TrackComponent />);
-  expect(getAllByTestId('TrackCard').length).toBe(1);
+  expect(getAllByTestId('track_card').length).toBe(1);
 });
 
 it('should render the track details inside the Card', () => {
@@ -83,7 +83,7 @@ it('should redirect to /trackId when clicked on the Modal component', async () =
     </Router>
   );
   const historySpy = jest.spyOn(history, 'push');
-  fireEvent.click(getByTestId('TrackCard'));
+  fireEvent.click(getByTestId('track_card'));
   fireEvent.click(baseElement.getElementsByClassName('ant-btn-primary')[0]);
   await timeout(500);
   expect(historySpy).toHaveBeenCalledWith(`/tracks/${trackId}`);
@@ -108,7 +108,7 @@ it('should close the modal if clicked in the cancel button', async () => {
       />
     </Router>
   );
-  fireEvent.click(getByTestId('TrackCard'));
+  fireEvent.click(getByTestId('track_card'));
   expect(baseElement.getElementsByClassName('ant-modal-mask').length).toBe(1);
   fireEvent.click(baseElement.getElementsByClassName('ant-modal-close')[0]);
   expect(baseElement.getElementsByClassName('ant-modal-mask').length).toBe(0);
