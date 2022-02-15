@@ -8,7 +8,7 @@ import If from '../If/index';
 import UploadTrackPropDetails from '@components/UploadTrackPropDetails';
 import UploadTrackImage from '@components/UploadTrackImage';
 import For from '@components/For';
-import { TRACK_CREATION_STEPS } from '@app/utils/TrackCreationUtils';
+import { TRACK_CREATION_STEPS } from '@utils/trackCreationUtils';
 import T from '@components/T';
 
 const StyledCard = styled.div`
