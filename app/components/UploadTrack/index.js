@@ -3,13 +3,13 @@ import { Steps, Button } from 'antd';
 import styled from 'styled-components';
 import * as colors from '@app/themes/colors';
 import { TrackDetailsComponent } from '../TrackDetailsComponent/index';
-import UploadTrackBaseDetails from '../UploadTrackBaseDetails/index';
+import UploadTrackBaseDetails from '@components/UploadTrackBaseDetails';
 import If from '../If/index';
-import UploadTrackPropDetails from '../UploadTrackPropDetails/index';
-import UploadTrackImage from '../UploadTrackImage/Index';
-import For from '../For/index';
+import UploadTrackPropDetails from '@components/UploadTrackPropDetails';
+import UploadTrackImage from '@components/UploadTrackImage';
+import For from '@components/For';
 import { TRACK_CREATION_STEPS } from '@app/utils/TrackCreationUtils';
-import { T } from '../T/index';
+import { T } from '@components/T';
 
 const StyledCard = styled.div`
   && {
@@ -54,7 +54,11 @@ export function UploadTrack() {
   return (
     <>
       <StyledCard data-testid="upload-track">
-        <For parent={<Steps current={current} />} of={TRACK_CREATION_STEPS} renderItem={() => <Step />} />
+        <For
+          parent={<Steps current={current} />}
+          of={TRACK_CREATION_STEPS}
+          renderItem={(item) => <Step {...(<T id={item.title} />)} />}
+        />
         <If condition={current === 0}>
           <UploadTrackBaseDetails handleOnSubmit={handleOnSubmit} />
         </If>
@@ -76,7 +80,5 @@ export function UploadTrack() {
     </>
   );
 }
-
-UploadTrack.propTypes = {};
 
 export default memo(UploadTrack);

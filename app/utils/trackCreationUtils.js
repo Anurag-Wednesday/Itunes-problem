@@ -1,11 +1,11 @@
 export const TRACK_CREATION_STEPS = [
   {
-    title: 'Track Basic Details'
+    title: 'track_base_details'
   },
   {
-    title: 'Track Property Details'
+    title: 'track_property_details'
   },
   {
-    title: 'Upload Artwork'
+    title: 'track_upload_artwork'
   }
 ];

@@ -44,5 +44,8 @@
   "now_playing": "Now Playing",
   "cleared": "Cleared Search",
   "explicit": "Explicit",
-  "title": "Title"
+  "title": "Title",
+  "track_base_details": "Track Base Details",
+  "track_property_details": "Track Property Details",
+  "track_upload_artwork": "Upload Artwork"
 }
