@@ -2,7 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Input, Skeleton, Card } from 'antd';
+import { Input, Skeleton, Card, notification, message } from 'antd';
 import get from 'lodash/get';
 import { isEmpty } from 'lodash';
 import debounce from 'lodash/debounce';
@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
+import history from '@app/utils/history';
 import { selectSearchContainer, selectTrackResults, selectTrackErrors, selectSearchTerm } from '../selectors';
 import searchContainerSaga from '../saga';
 import { colors } from '@app/themes/index';
@@ -61,6 +62,18 @@ const Header = styled.h2`
   }
 `;
 
+const RightContent = styled.div`
+  display: flex;
+  align-self: flex-end;
+`;
+
+const StyledT = styled(T)`
+  && {
+    color: ${colors.gotoStories};
+    margin: 0.5rem;
+  }
+`;
+
 export function SearchContainer({
   dispatchGetTrackList,
   dispatchClearTrackInfo,
@@ -75,6 +88,10 @@ export function SearchContainer({
   const [playingSong, setPlayingSong] = useState(null);
   const handleOnActionClick = (track, type) => {
     if (type === 'play') {
+      notification.open({
+        message: intl.formatMessage({ id: 'now_playing' }),
+        description: `${track.id}`
+      });
       setPlayingSong(track);
       if (playingSong && playingSong !== track) {
         playingSong.pause();
@@ -103,6 +120,7 @@ export function SearchContainer({
     if (!isEmpty(sTerm)) {
       dispatchGetTrackList(sTerm);
     } else {
+      message.warning(intl.formatMessage({ id: 'cleared' }));
       dispatchClearTrackInfo();
     }
   };
@@ -114,6 +132,13 @@ export function SearchContainer({
     return (
       <If condition={!isEmpty(results) || loading}>
         <Container>
+          <RightContent>
+            <StyledT
+              data-testid="redirect-to-upload"
+              id="upload"
+              onClick={() => history.push('/tracks/upload/steps')}
+            />
+          </RightContent>
           <CustomCard>
             <Skeleton loading={loading} active>
               <If condition={!isEmpty(searchTerm)}>

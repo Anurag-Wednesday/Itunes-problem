@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Carousel } from 'antd';
+import { Carousel, Tag, Popover } from 'antd';
 import { isEmpty } from 'lodash';
 import styled from 'styled-components';
 import If from '@components/If';
@@ -15,6 +15,12 @@ const Details = styled.div`
     background-color: ${colors.background};
     color: white;
     margin-left: 7rem;
+  }
+`;
+
+const StyledTag = styled(Tag)`
+  && {
+    margin-left: 0.5rem;
   }
 `;
 
@@ -75,21 +81,36 @@ export function TrackDetailsComponent({
   artworkUrl100,
   collectionName,
   primaryGenreName,
-  trackViewUrl
+  trackViewUrl,
+  trackExplicitness
 }) {
   return (
     <TrackDetailsCard data-testid="track-details-component">
       <If condition={!isEmpty(artworkUrl100)} otherwise={<T data-testid="image_unavailable" id="image_unavailable" />}>
-        <StyledCarousel autoplay dotPosition="bottom">
-          <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
-          <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
-          <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
-        </StyledCarousel>
+        <Popover
+          title={<T id="title" />}
+          content={
+            <T type="subheading" id="track_details_name" data-testid="track_title" values={{ track: trackName }} />
+          }
+        >
+          <StyledCarousel autoplay dotPosition="bottom">
+            <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
+            <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
+            <TrackImage data-testid="carousel-image" alt={trackName} src={artworkUrl100} />
+          </StyledCarousel>
+        </Popover>
       </If>
       <Details>
         <TrackTitle>
           <If condition={!isEmpty(trackName)} otherwise={<T data-testid="no-track-name" id="no_track_name" />}>
-            <T type="heading" id="track_details_name" data-testid="track_title" values={{ Track: trackName }} />
+            <T type="heading" id="track_details_name" data-testid="track_title" values={{ track: trackName }} />
+          </If>
+          <If condition={trackExplicitness === 'explicit'}>
+            <Popover data-tesid="popover" content={<T id="explicit" />}>
+              <StyledTag data-testid="explicit" color="red">
+                E
+              </StyledTag>
+            </Popover>
           </If>
         </TrackTitle>
         <ArtistName>
@@ -101,10 +122,15 @@ export function TrackDetailsComponent({
           condition={!isEmpty(collectionName)}
           otherwise={<T data-testid="artist_data_unavailable" id="artist_data_unavailable" />}
         >
-          <T type="standard" id="track_details_collectionName" values={{ Collection: collectionName }} />
+          <T
+            type="standard"
+            data-testid="collection_name"
+            id="track_details_collectionName"
+            values={{ collection: collectionName }}
+          />
         </If>
         <If condition={!isEmpty(primaryGenreName)} otherwise={<T id="artist_data_unavailable" />}>
-          <T type="standard" id="track_details_genre" values={{ Genre: primaryGenreName }} />
+          <T type="standard" id="track_details_genre" values={{ genre: primaryGenreName }} />
         </If>
         <If condition={!isEmpty(previewUrl)} otherwise={<T id="preview_unavailable" />}>
           <AudioPlayer data-testid={trackName} controls>
@@ -128,7 +154,8 @@ TrackDetailsComponent.propTypes = {
   trackViewUrl: PropTypes.string,
   previewUrl: PropTypes.string,
   artworkUrl100: PropTypes.string,
-  primaryGenreName: PropTypes.string
+  primaryGenreName: PropTypes.string,
+  trackExplicitness: PropTypes.string
 };
 
 export default memo(TrackDetailsComponent);

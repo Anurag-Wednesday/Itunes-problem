@@ -48,6 +48,7 @@ const RightContent = styled.div`
 const StyledT = styled(T)`
   && {
     color: ${colors.gotoStories};
+    margin: 0.5rem;
   }
 `;
 export function HomeContainer({
@@ -142,6 +143,7 @@ export function HomeContainer({
     <Container maxwidth={maxwidth} padding={padding}>
       <RightContent>
         <StyledT onClick={handleStoriesClick} data-testid="redirect" id="stories" />
+        <StyledT data-testid="redirect-to-tracks" id="tracks" onClick={() => history.push('/tracks')} />
       </RightContent>
       <CustomCard title={intl.formatMessage({ id: 'repo_search' })} maxwidth={maxwidth}>
         <T marginBottom={10} id="get_repo_details" />

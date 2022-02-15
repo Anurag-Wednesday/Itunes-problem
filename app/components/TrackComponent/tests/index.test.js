@@ -15,7 +15,7 @@ describe('<TrackComponent />', () => {
 
 it('should contain one TrackComponent', () => {
   const { getAllByTestId } = renderWithIntl(<TrackComponent />);
-  expect(getAllByTestId('TrackCard').length).toBe(1);
+  expect(getAllByTestId('track_card').length).toBe(1);
 });
 
 it('should render the track details inside the Card', () => {
@@ -63,7 +63,7 @@ it('should render the track details unavailable messages in case any props are u
   expect(getByText(previewUnavailable)).toBeInTheDocument();
 });
 
-it('should redirect to /trackId when clicked on Clickable component', async () => {
+it('should redirect to /trackId when clicked on the Modal component', async () => {
   const trackName = 'See you Again';
   const artistName = 'Charlie Puth';
   const trackId = 1445140962;
@@ -71,7 +71,7 @@ it('should redirect to /trackId when clicked on Clickable component', async () =
     'https://is4-ssl.mzstatic.com/image/thumb/Podcasts125/v4/72/46/63/724663b9-46ac-ab25-c167-546ef48f7ed5/mza_1727273594955964910.jpg/60x60bb.jpg';
   const artworkUrl100 =
     'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5d/b0/e4/5db0e413-9d75-d04c-5e95-ea9fc6361084/mzaf_16693952033856250131.plus.aac.p.m4a';
-  const { getByTestId } = renderWithIntl(
+  const { getByTestId, baseElement } = renderWithIntl(
     <Router history={history}>
       <TrackComponent
         trackName={trackName}
@@ -83,7 +83,33 @@ it('should redirect to /trackId when clicked on Clickable component', async () =
     </Router>
   );
   const historySpy = jest.spyOn(history, 'push');
-  fireEvent.click(getByTestId('TrackCard'));
+  fireEvent.click(getByTestId('track_card'));
+  fireEvent.click(baseElement.getElementsByClassName('ant-btn-primary')[0]);
   await timeout(500);
   expect(historySpy).toHaveBeenCalledWith(`/tracks/${trackId}`);
+});
+
+it('should close the modal if clicked in the cancel button', async () => {
+  const trackName = 'See you Again';
+  const artistName = 'Charlie Puth';
+  const trackId = 1445140962;
+  const previewUrl =
+    'https://is4-ssl.mzstatic.com/image/thumb/Podcasts125/v4/72/46/63/724663b9-46ac-ab25-c167-546ef48f7ed5/mza_1727273594955964910.jpg/60x60bb.jpg';
+  const artworkUrl100 =
+    'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5d/b0/e4/5db0e413-9d75-d04c-5e95-ea9fc6361084/mzaf_16693952033856250131.plus.aac.p.m4a';
+  const { getByTestId, baseElement } = renderWithIntl(
+    <Router history={history}>
+      <TrackComponent
+        trackName={trackName}
+        artistName={artistName}
+        previewUrl={previewUrl}
+        artworkUrl100={artworkUrl100}
+        trackId={trackId}
+      />
+    </Router>
+  );
+  fireEvent.click(getByTestId('track_card'));
+  expect(baseElement.getElementsByClassName('ant-modal-mask').length).toBe(1);
+  fireEvent.click(baseElement.getElementsByClassName('ant-modal-close')[0]);
+  expect(baseElement.getElementsByClassName('ant-modal-mask').length).toBe(0);
 });

@@ -10,10 +10,16 @@ exports[`<ProtectedRoute /> should render and match the snapshot 1`] = `
         class="HomeContainer__RightContent-l0s8pp-2 bvlZvV"
       >
         <p
-          class="T__StyledText-gjlic1-0 iVJYgn HomeContainer__StyledT-l0s8pp-3 fYCmLU"
+          class="T__StyledText-gjlic1-0 iVJYgn HomeContainer__StyledT-l0s8pp-3 eMMiXO"
           data-testid="redirect"
         >
           Go to Storybook
+        </p>
+        <p
+          class="T__StyledText-gjlic1-0 iVJYgn HomeContainer__StyledT-l0s8pp-3 eMMiXO"
+          data-testid="redirect-to-tracks"
+        >
+          Go to Tracks
         </p>
       </div>
       <div

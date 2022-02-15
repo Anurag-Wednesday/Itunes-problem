@@ -1,5 +1,4 @@
 import React from 'react';
-// import { fireEvent } from '@testing-library/dom'
 import { renderWithIntl } from '@utils/testUtils';
 import TrackDetailsComponent from '../index';
 import { translate } from '@app/components/IntlGlobalProvider/index';
@@ -38,5 +37,11 @@ describe('<TrackDetailsComponent />', () => {
     const { baseElement, getAllByTestId } = renderWithIntl(<TrackDetailsComponent artworkUrl100={artWork} />);
     expect(baseElement.getElementsByClassName('ant-carousel').length).toBe(1);
     expect(getAllByTestId('carousel-image').length).toEqual(7);
+  });
+
+  it('should render the tag for explicitness when the track is explicit ', async () => {
+    const trackExplicitness = 'explicit';
+    const { baseElement } = renderWithIntl(<TrackDetailsComponent trackExplicitness={trackExplicitness} />);
+    expect(baseElement.getElementsByClassName('ant-tag').length).toBe(1);
   });
 });
