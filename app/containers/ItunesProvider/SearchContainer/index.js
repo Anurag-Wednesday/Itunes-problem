@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { injectSaga } from 'redux-injectors';
+import history from '@app/utils/history';
 import { selectSearchContainer, selectTrackResults, selectTrackErrors, selectSearchTerm } from '../selectors';
 import searchContainerSaga from '../saga';
 import { colors } from '@app/themes/index';
@@ -61,6 +62,18 @@ const Header = styled.h2`
   }
 `;
 
+const RightContent = styled.div`
+  display: flex;
+  align-self: flex-end;
+`;
+
+const StyledT = styled(T)`
+  && {
+    color: ${colors.gotoStories};
+    margin: 0.5rem;
+  }
+`;
+
 export function SearchContainer({
   dispatchGetTrackList,
   dispatchClearTrackInfo,
@@ -76,7 +89,7 @@ export function SearchContainer({
   const handleOnActionClick = (track, type) => {
     if (type === 'play') {
       notification.open({
-        message: 'Now Playing',
+        message: intl.formatMessage({ id: 'now_playing' }),
         description: `${track.id}`
       });
       setPlayingSong(track);
@@ -107,7 +120,7 @@ export function SearchContainer({
     if (!isEmpty(sTerm)) {
       dispatchGetTrackList(sTerm);
     } else {
-      message.warning('Cleared Search');
+      message.warning(intl.formatMessage({ id: 'cleared' }));
       dispatchClearTrackInfo();
     }
   };
@@ -119,6 +132,13 @@ export function SearchContainer({
     return (
       <If condition={!isEmpty(results) || loading}>
         <Container>
+          <RightContent>
+            <StyledT
+              data-testid="redirect-to-upload"
+              id="upload"
+              onClick={() => history.push('/tracks/upload/steps')}
+            />
+          </RightContent>
           <CustomCard>
             <Skeleton loading={loading} active>
               <If condition={!isEmpty(searchTerm)}>

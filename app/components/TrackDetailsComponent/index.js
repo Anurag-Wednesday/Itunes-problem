@@ -88,9 +88,9 @@ export function TrackDetailsComponent({
     <TrackDetailsCard data-testid="track-details-component">
       <If condition={!isEmpty(artworkUrl100)} otherwise={<T data-testid="image_unavailable" id="image_unavailable" />}>
         <Popover
-          title="Title"
+          title={<T id="title" />}
           content={
-            <T type="subheading" id="track_details_name" data-testid="track_title" values={{ Track: trackName }} />
+            <T type="subheading" id="track_details_name" data-testid="track_title" values={{ track: trackName }} />
           }
         >
           <StyledCarousel autoplay dotPosition="bottom">
@@ -103,10 +103,10 @@ export function TrackDetailsComponent({
       <Details>
         <TrackTitle>
           <If condition={!isEmpty(trackName)} otherwise={<T data-testid="no-track-name" id="no_track_name" />}>
-            <T type="heading" id="track_details_name" data-testid="track_title" values={{ Track: trackName }} />
+            <T type="heading" id="track_details_name" data-testid="track_title" values={{ track: trackName }} />
           </If>
           <If condition={trackExplicitness === 'explicit'}>
-            <Popover data-tesid="popover" content="Explicit track">
+            <Popover data-tesid="popover" content={<T id="explicit" />}>
               <StyledTag data-testid="explicit" color="red">
                 E
               </StyledTag>
@@ -122,10 +122,15 @@ export function TrackDetailsComponent({
           condition={!isEmpty(collectionName)}
           otherwise={<T data-testid="artist_data_unavailable" id="artist_data_unavailable" />}
         >
-          <T type="standard" id="track_details_collectionName" values={{ Collection: collectionName }} />
+          <T
+            type="standard"
+            data-testid="collection_name"
+            id="track_details_collectionName"
+            values={{ collection: collectionName }}
+          />
         </If>
         <If condition={!isEmpty(primaryGenreName)} otherwise={<T id="artist_data_unavailable" />}>
-          <T type="standard" id="track_details_genre" values={{ Genre: primaryGenreName }} />
+          <T type="standard" id="track_details_genre" values={{ genre: primaryGenreName }} />
         </If>
         <If condition={!isEmpty(previewUrl)} otherwise={<T id="preview_unavailable" />}>
           <AudioPlayer data-testid={trackName} controls>

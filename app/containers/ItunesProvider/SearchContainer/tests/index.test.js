@@ -3,6 +3,7 @@ import { renderProvider, timeout } from '@utils/testUtils';
 import { fireEvent } from '@testing-library/dom';
 import { searchContainerTypes } from '../../reducer';
 import TrackComponent from '@app/components/TrackComponent/index';
+import history from '@utils/history';
 import { mapDispatchToProps, SearchContainerTest as SearchContainer } from '../index';
 
 describe('<SearchContainer /> container tests', () => {
@@ -83,7 +84,7 @@ describe('<SearchContainer /> container tests', () => {
         'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5d/b0/e4/5db0e413-9d75-d04c-5e95-ea9fc6361084/mzaf_16693952033856250131.plus.aac.p.m4a'
     };
     const { getAllByTestId } = renderProvider(<TrackComponent item={data} />);
-    expect(getAllByTestId('TrackCard').length).toBe(resultCount);
+    expect(getAllByTestId('track_card').length).toBe(resultCount);
   });
 
   it('should set setPlayingSong if type passed to handleOnActionClick is play', async () => {
@@ -160,4 +161,24 @@ it('should pause the song if the type passed to event is pause', () => {
   const { getByTestId } = renderProvider(<SearchContainer trackResults={data} />);
   fireEvent.pause(getByTestId(trackOne));
   expect(getByTestId(trackOne).paused).toEqual(true);
+});
+it('should redirect to the upload steps page when clicked on link ', async () => {
+  const data = {
+    resultCount: 1,
+    results: [
+      {
+        trackName: 'See you Again',
+        artistName: 'Charlie Puth',
+        artworkUrl100:
+          'https://is4-ssl.mzstatic.com/image/thumb/Podcasts125/v4/72/46/63/724663b9-46ac-ab25-c167-546ef48f7ed5/mza_1727273594955964910.jpg/60x60bb.jpg',
+        previewUrl:
+          'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/5d/b0/e4/5db0e413-9d75-d04c-5e95-ea9fc6361084/mzaf_16693952033856250131.plus.aac.p.m4a'
+      }
+    ]
+  };
+  const historySpy = jest.spyOn(history, 'push');
+  const { getByTestId } = renderProvider(<SearchContainer trackResults={data} />);
+  fireEvent.click(getByTestId('redirect-to-upload'));
+  await timeout(500);
+  expect(historySpy).toHaveBeenCalledWith(`/tracks/upload/steps`);
 });
